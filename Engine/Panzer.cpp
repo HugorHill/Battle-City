@@ -1,5 +1,7 @@
 #pragma once
 #include "Panzer.h"
+#include "Bullet.h"
+#include "Map.h"
 
 Panzer :: Panzer(int x, int y, int vel, int dir) {
 	coordX = x;
@@ -13,9 +15,13 @@ Panzer :: Panzer(int x, int y, int vel, int dir) {
 double Panzer::GetCooldown() {
 	return cooldown;
 }
-
-void Panzer::init(void*p) {
+void Panzer::Shoot() {
+	Bullet p(coordX, coordY, direction);
+	(*(Map*)map).AddBullet(p);
+	cooldown = Panzer::std_cooldown;
 }
+
+
 
 void Panzer::update() {
 	if (direction == 0) {
@@ -31,6 +37,4 @@ void Panzer::update() {
 		coordX -= velocity * time;
 	}
 }
-void Panzer::draw() {
-
-}
+//void Panzer::draw() {}

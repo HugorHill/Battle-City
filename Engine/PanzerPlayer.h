@@ -3,6 +3,6 @@
 
 class PanzerPlayer : public Panzer {
 public:
-	void logic() ;
+	void logic();
 
 };
