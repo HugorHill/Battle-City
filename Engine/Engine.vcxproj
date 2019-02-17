@@ -144,18 +144,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Map.cpp" />
     <ClCompile Include="MemoryManager.cpp" />
+    <ClCompile Include="Panzer.cpp" />
+    <ClCompile Include="PanzerBot.cpp" />
+    <ClCompile Include="PanzerPlayer.cpp" />
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bullet.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="Map.h" />
     <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="Panzer.h" />
+    <ClInclude Include="PanzerBot.h" />
+    <ClInclude Include="PanzerPlayer.h" />
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
