@@ -20,6 +20,7 @@ class Engine
 {
 	friend class Scene;
 	friend class RenderManager;
+	friend class GameObject;
 	public:
 		Engine() {};
 		~Engine();

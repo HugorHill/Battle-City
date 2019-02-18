@@ -18,7 +18,7 @@ class Panzer : public GameObject {
 		static double time; // время между кадрами
 		Panzer(void*p) { init(p); }; //у танка игрока и бота отличаются только функции логики
 		Panzer(int x, int y, int vel, int dir) ;
-		void init (void* p) ;
+		void init(void* p) {  }
 		void draw() {};
 		void update();
 		virtual void logic() = 0;
