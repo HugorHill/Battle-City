@@ -12,6 +12,7 @@ protected:
 	int coordY;
 	
 public:
+	static double time;
 	Bullet(int x, int y, int dir);
 	Bullet(void* p) ;
 	void init(void *p) ;

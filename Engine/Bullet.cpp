@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "Terrain.h"
 
 Bullet::Bullet(int x, int y,  int dir) {
 	coordX = x;
@@ -6,15 +7,27 @@ Bullet::Bullet(int x, int y,  int dir) {
 	direction = dir;
 	IsAlive = 1;
 }
-void init(void *p) {
+void Bullet :: init(void *p) {
 
 }
-void update() {
+void Bullet :: update() {
+	if (direction == 0) {
+		coordY += BulletSpeed * time;
+	}
+	if (direction == 1) {
+		coordX+= BulletSpeed * time;
+	}
+	if (direction == 2) {
+		coordY -= BulletSpeed * time;
+	}
+	if (direction == 3) {
+		coordX -= BulletSpeed * time;
+	}
 
 }
-void logic() {
+void Bullet :: logic() {
 
 }
-void draw() {
+void Bullet :: draw() {
 
 }

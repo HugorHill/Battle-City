@@ -35,4 +35,6 @@ class Terrain : public GameObject
 		GLuint texture;
 		Square sqr;
 };
+//функция поворота текстуры танка (координаты, угол в градусах)
+//функция рисования объекта
 

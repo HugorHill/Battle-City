@@ -25,6 +25,6 @@ void Map :: update() {
 	deltatime = double(currentTime - time);
 	time = currentTime;
 	Panzer::time = deltatime;
-
+	Bullet::time = deltatime;
 
 }
