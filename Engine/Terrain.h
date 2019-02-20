@@ -26,7 +26,7 @@ class Square
 class Terrain : public GameObject
 {
 	public:
-		Terrain(void* p) { init(p); }
+		Terrain() {};
 		void init(void* p);
 		void draw();
 		void logic() {};

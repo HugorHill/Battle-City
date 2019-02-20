@@ -10,7 +10,8 @@
 Scene* create_Scene(void* p)
 {
 	Scene* scene = new Scene(p);
-	scene->push_gameObject(new Terrain(p));
+	scene->push_gameObject(new Terrain);
+	scene->init();
 	return scene;
 };
 
