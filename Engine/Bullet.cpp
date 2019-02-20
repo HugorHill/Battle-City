@@ -1,6 +1,13 @@
 #include "Bullet.h"
 #include "Terrain.h"
 
+
+//you should init static variables
+int Bullet::BulletSpeed = 1;
+double Bullet::time = 0;
+
+
+
 Bullet::Bullet(int x, int y,  int dir) {
 	coordX = x;
 	coordY = y;	

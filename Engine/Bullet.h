@@ -14,7 +14,7 @@ protected:
 public:
 	static double time;
 	Bullet(int x, int y, int dir);
-	Bullet(void* p) ;
+	Bullet(void* p) {};
 	void init(void *p) ;
 	void update() ;
 	void logic();

@@ -3,6 +3,13 @@
 #include "Bullet.h"
 #include "Map.h"
 
+//init some static variables
+double Panzer::std_cooldown = 0;
+GLFWwindow* Panzer::window = NULL;
+void* Panzer::map = NULL;
+double Panzer::time = 0;
+
+
 Panzer :: Panzer(int x, int y, int vel, int dir) {
 	coordX = x;
 	coordY = y;
@@ -17,7 +24,7 @@ double Panzer::GetCooldown() {
 }
 void Panzer::Shoot() {
 	Bullet p(coordX, coordY, direction);
-	(*(Map*)map).AddBullet(p);
+	(*(Map*)map).AddBullet(p); // use #include "Defines.h" and write like this: _ptr(map,Map)->AddBullet(p);
 	cooldown = Panzer::std_cooldown;
 }
 

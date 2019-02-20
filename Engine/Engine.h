@@ -20,7 +20,6 @@ class Engine
 {
 	friend class Scene;
 	friend class RenderManager;
-	friend class GameObject;
 	public:
 		Engine() {};
 		~Engine();
@@ -28,6 +27,7 @@ class Engine
 		void create_var(std::string name, int size); // создание новой глобальной переменной для движка
 		void push_scene(Scene* scene); // добавние сцены в список
 		void run(); // непосредственный запуск бесконечного цикла движка
+		GLFWwindow* getWindow(); //u can get the pointer of current window
 		MemoryManager mm;
 		RenderManager rm;
 	private:
