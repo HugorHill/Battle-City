@@ -21,3 +21,8 @@ void Scene::calculate()
 		gameObjects[i]->update();
 	}
 }
+
+void Scene::init()
+{
+	for (auto &item : gameObjects) item->init(engine);
+}

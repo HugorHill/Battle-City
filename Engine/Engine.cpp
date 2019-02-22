@@ -43,3 +43,8 @@ void Engine::run()
 	}
 	while (!glfwWindowShouldClose(window));
 }
+
+GLFWwindow* Engine::getWindow()
+{
+	return window;
+}

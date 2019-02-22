@@ -26,7 +26,7 @@ class Square
 class Terrain : public GameObject
 {
 	public:
-		Terrain(void* p) { init(p); }
+		Terrain() {};
 		void init(void* p);
 		void draw();
 		void logic() {};
@@ -35,4 +35,6 @@ class Terrain : public GameObject
 		GLuint texture;
 		Square sqr;
 };
+//функция поворота текстуры танка (координаты, угол в градусах)
+//функция рисования объекта
 
