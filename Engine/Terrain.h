@@ -3,26 +3,6 @@
 #include "MemoryManager.h"
 #include "Shader.h"
 
-
-#define WINDOW_SIZE_UNITS 512
-
-class Square
-{
-	public:
-		Square() {};
-		~Square() {};
-		Square(float unit_size, void* engine);
-		void draw(GLuint texture);
-
-	private:
-		float square_size;
-		GLuint VAO;
-		GLuint Positions;
-		GLuint Texture_coords;
-		Shader Shader_prog;
-};
-
-
 class Terrain : public GameObject
 {
 	public:
@@ -33,7 +13,6 @@ class Terrain : public GameObject
 		void update() {};
 	private:
 		GLuint texture;
-		Square sqr;
 };
 //функция поворота текстуры танка (координаты, угол в градусах)
 //функция рисования объекта
