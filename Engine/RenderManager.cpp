@@ -29,7 +29,7 @@ void RenderManager::init(int w, int h)
 		return;
 	}
 	glfwMakeContextCurrent(_ptr(engine, Engine)->window);
-
+	glfwSwapInterval(0);
 
 
 	glewExperimental = true;

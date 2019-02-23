@@ -20,6 +20,6 @@ void Terrain::draw()
 	time += 0.01;
 	pos.x = A*cos(time);
 	pos.y = A*sin(time);
-	_ptr(engine, Engine)->rm.drawSquare(texture, 256, pos,45);
+	_ptr(engine, Engine)->rm.drawSquare(texture, 256, pos,30);
 }
 
