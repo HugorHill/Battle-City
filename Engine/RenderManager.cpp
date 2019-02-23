@@ -3,8 +3,7 @@
 #include "Engine.h"
 #include <stdio.h>
 #include <string>
-#define _USE_MATH_DEFINES
-#include <math.h>
+
 
 
 void RenderManager::init(int w, int h)
@@ -78,7 +77,7 @@ void RenderManager::drawSquare(GLuint texture, GLuint size, glm::vec2 pos, float
 	glm::mat4 transformation = glm::mat4(1);
 	pos /= WINDOW_SIZE_UNITS/2.0;
 	transformation = glm::translate(transformation, glm::vec3(pos, 0));
-	transformation = glm::rotate(transformation, (float)(angelRotate*M_PI/180), glm::vec3(0, 0, 1));
+	transformation = glm::rotate(transformation, glm::radians(angelRotate), glm::vec3(0, 0, 1));
 	transformation = glm::scale(transformation, glm::vec3((float)size / WINDOW_SIZE_UNITS));
 
 	square.shader.load_mat("transf", transformation); //тут загружаеся преобразование

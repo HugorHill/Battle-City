@@ -18,8 +18,8 @@ static double A = 128;
 void Terrain::draw()
 {
 	time += 0.01;
-	pos.x = A*cos(time*sin(time));
+	pos.x = A*cos(time);
 	pos.y = A*sin(time);
-	_ptr(engine, Engine)->rm.drawSquare(texture, 256, pos);
+	_ptr(engine, Engine)->rm.drawSquare(texture, 256, pos,45);
 }
 
