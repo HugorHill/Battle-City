@@ -9,6 +9,7 @@
 #include "RenderManager.h"
 #include "MemoryManager.h"
 #include "Scene.h"
+#include "Gui.h"
 
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glfw3.lib")

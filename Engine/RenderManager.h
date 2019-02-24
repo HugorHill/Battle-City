@@ -8,7 +8,7 @@
 #include <glm\glm.hpp>
 #include "Shader.h"
 
-#define WINDOW_SIZE_UNITS 512
+#define WINDOW_SIZE_UNITS 512.0
 
 class RenderManager
 {
@@ -21,7 +21,7 @@ class RenderManager
 		void updateScreen();
 
 		void drawSquare(GLuint texture,GLuint size,glm::vec2 pos,float angelRotate = 0);
-		
+		void drawText(std::string text, glm::vec2 pos, bool atCenter = false, glm::vec3 color = glm::vec3(0), float scale = 1,GLuint bgTexture = 0);
 	private:
 		void* engine; // указатель на движок
 		struct

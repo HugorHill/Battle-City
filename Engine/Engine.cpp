@@ -14,7 +14,7 @@ Engine::~Engine()
 void Engine::init()
 {
 	rm = RenderManager(this);
-	rm.init(500, 500);
+	rm.init(700, 700);
 	current_scene = -1;
 }
 
@@ -35,7 +35,7 @@ void Engine::run()
 {
 	do
 	{
-		glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		if (current_scene!=-1) scenes[current_scene]->calculate();
 		rm.updateScreen();

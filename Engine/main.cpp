@@ -12,7 +12,6 @@ Scene* create_Scene(void* p)
 {
 	Scene* scene = new Scene(p);
 	scene->push_gameObject(new Terrain);
-	scene->push_gameObject(new gui::Label);
 	scene->init();
 	return scene;
 };

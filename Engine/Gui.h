@@ -4,11 +4,10 @@
 #include "MemoryManager.h"
 #include <iostream>
 #include <string>
-#include <ft2build.h>
-#include <freetype\freetype.h>
 
 namespace gui
 {
+
 	class Label: public GameObject
 	{
 		public:

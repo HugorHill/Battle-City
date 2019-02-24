@@ -20,6 +20,9 @@ void Terrain::draw()
 	time += 0.01;
 	pos.x = A*cos(time);
 	pos.y = A*sin(time);
+
 	_ptr(engine, Engine)->rm.drawSquare(texture, 256, pos,30);
+	_ptr(engine, Engine)->rm.drawText("BATTLE", glm::vec3(0, WINDOW_SIZE_UNITS / 4, 0), true, glm::vec3(0), 1.5, texture);
+	_ptr(engine, Engine)->rm.drawText("CITY", glm::vec3(0,WINDOW_SIZE_UNITS/8,0),true,glm::vec3(0),1.5,texture);
 }
 
