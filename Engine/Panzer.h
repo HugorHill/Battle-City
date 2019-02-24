@@ -9,7 +9,7 @@ class Panzer : public GameObject {
 	int coordY;
 	int velocity;
 	int direction; //направление 0-up, 1-right, 2-down, 3-left
-	int IsAlive; // состояние 1 жив, 0- уничтожить
+	
 	double cooldown;
 	static double std_cooldown;	
 	static void* map; // указатель на карту, используемую в игре
@@ -25,6 +25,7 @@ class Panzer : public GameObject {
 		void update();
 		virtual void logic() = 0;
 		double GetCooldown();
+		int IsAlive; // состояние 1 жив, 0- уничтожить
 		void Shoot();
 
 };

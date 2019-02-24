@@ -13,7 +13,7 @@ protected:
 	PanzerPlayer player;	
 	int CountBot;
 	int CountBullet;
-	int map[35][35]; // 0- ничего,1- трава, 2- кирпич, 3 - бетон, 4-вода
+	int map[32][32]; // 0- ничего,1- трава, 2- кирпич, 3 - бетон, 4-вода
 	double time;
 	double deltatime;   //время между кадрами
 	std::vector<GLuint> textures;

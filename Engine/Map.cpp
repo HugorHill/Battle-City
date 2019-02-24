@@ -1,5 +1,7 @@
 #pragma once
 #include "Map.h"
+#include <fstream>
+#include <string>
 void Map :: AddBot(PanzerBot p) {
 	bots.push_back(p);
 	CountBot++;
@@ -18,11 +20,17 @@ void Map :: init(void* p) {
 Map::Map(void* _p, void * _map) {
 	PanzerPlayer temp(0, 0, std_vel, 0, _p, _map);
 	player = temp;
+	bots.clear();
+	bullets.clear();
 	CountBot = 0;
 	CountBullet = 0;
-	for (int i = 0; i < 35; i++) {
-		for (int j = 0; j < 35; j++) {
-			map[i][j] = 0;
+	std::ifstream in;
+	in.open("map/map1.txt");
+	for (int i = 0; i < 32; i++) {
+		std::string s;
+		getline(in, s);
+		for (int j = 0; j < 32; j++) {
+			map[i][j] = s[j]-'0';
 		}
 	}
 	textures[1] = _ptr(engine, Engine)->mm.loadTexture("map/grass", true);
@@ -31,8 +39,10 @@ Map::Map(void* _p, void * _map) {
 	textures[4] = _ptr(engine, Engine)->mm.loadTexture("map/water", true);
 	time = glfwGetTime();
 	deltatime = 0;
+
 }
 void Map :: draw() {
+	
 	for (int i = 0; i < CountBullet; i++) {
 		bullets[i].draw();
 	}
@@ -85,7 +95,22 @@ void Map :: update() {
 			}
 		}
 	}
-	// сделать обновление карты
-	
-
+	std::vector <Bullet> bullets_upd;
+	for (int i = 0; i < CountBullet; i++) {
+		if (bullets[i].IsAlive == 1) {
+			bullets_upd.push_back(bullets[i]);
+		}
+	}
+	bullets.clear();
+	CountBullet = bullets_upd.size();
+	bullets = bullets_upd; 
+	std::vector <PanzerBot> bots_upd;
+	for (int i = 0; i < CountBot; i++) {
+		if (bots[i].IsAlive == 1) {
+			bots_upd.push_back(bots[i]);
+		}
+	}
+	bots.clear();
+	CountBot = bots_upd.size();
+	bots=bots_upd;
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "PanzerBot.h"
-PanzerBot::PanzerBot(int x, int y, int dir, int vel, void*_p, void*_map, int type) {
+PanzerBot::PanzerBot(int x, int y, int dir, int vel, void*_p, void* _map,int type) {
 	coordX = x;
 	coordY = y;
 	velocity = vel;

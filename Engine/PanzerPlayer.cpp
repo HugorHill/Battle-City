@@ -1,7 +1,7 @@
 #pragma once
 #include "PanzerPlayer.h"
 
-PanzerPlayer::PanzerPlayer(int x,int y,int dir,int vel,void*_p,void*_map) {
+PanzerPlayer::PanzerPlayer(int x,int y,int dir,int vel,void*_p,void* _map) {
 	coordX = x;
 	coordY = y;
 	velocity = vel;
