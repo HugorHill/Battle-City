@@ -1,7 +1,7 @@
 ﻿
 #pragma once
 #include "MemoryManager.h"
-#include "Terrain.h"
+
 
 class Bullet : public GameObject {
 protected:

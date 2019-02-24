@@ -1,5 +1,4 @@
 #include "Bullet.h"
-#include "Terrain.h"
 
 
 //you should init static variables

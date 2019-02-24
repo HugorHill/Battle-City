@@ -37,7 +37,10 @@ void Engine::run()
 	{
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		if (current_scene!=-1) scenes[current_scene]->calculate();
+		if (scenes.size() && current_scene<scenes.size())
+			scenes[current_scene]->calculate();
+		if (current_scene >= scenes.size())
+			fprintf(stderr, "—цены с номером: %d нет в списке сцен\n", current_scene);
 		rm.updateScreen();
 		glfwPollEvents();
 	}

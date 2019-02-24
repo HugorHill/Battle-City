@@ -158,7 +158,6 @@
     <ClCompile Include="RenderManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
-    <ClCompile Include="Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
@@ -173,7 +172,6 @@
     <ClInclude Include="RenderManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
-    <ClInclude Include="Terrain.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

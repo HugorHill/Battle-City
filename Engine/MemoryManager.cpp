@@ -141,7 +141,7 @@ void MemoryManager::delShader(GLuint shader)
 }
 
 
-GLuint MemoryManager::loadTexture(std::string file)
+GLuint MemoryManager::loadTexture(std::string file,bool repeat)
 {
 	GLenum image_format = GL_RGBA;
 	GLint internal_format = GL_RGBA;
@@ -155,8 +155,8 @@ GLuint MemoryManager::loadTexture(std::string file)
 	glGenTextures(1, &gl_texID);
 	Textures.insert(gl_texID);
 	glBindTexture(GL_TEXTURE_2D, gl_texID);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT*repeat + GL_CLAMP_TO_EDGE*(1 - repeat));
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT*repeat + GL_CLAMP_TO_EDGE*(1 - repeat));
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, -0.5);

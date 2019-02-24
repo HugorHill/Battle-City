@@ -39,7 +39,7 @@ class MemoryManager
 		GLuint loadShader(std::string file);
 		void delShader(GLuint shader);
 
-		GLuint loadTexture(std::string file);
+		GLuint loadTexture(std::string file,bool repeat = false);
 		void delTexture(GLuint texture);
 
 private:

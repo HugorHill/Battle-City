@@ -8,16 +8,35 @@
 namespace gui
 {
 
-	class Label: public GameObject
+	class Menu : public GameObject
 	{
 		public:
-			Label() {};
-			~Label() {};
+			Menu() {};
+			~Menu() {};
 			void init(void* p);
-			void draw() {};
+			void draw();
+			void logic();
 			void update() {};
-			void logic() {};
 		private:
-			std::string caption;
+			GLuint bgTextTexture;
+			GLuint pointerTexture;
+			int current_button;
+			GLFWwindow* window;
+			RenderManager* rm;
+	};
+
+	class PassWindow : public GameObject
+	{
+		public:
+			PassWindow() {};
+			~PassWindow() {};
+			void init(void* p);
+			void draw();
+			void logic();
+			void update() {};
+		private:
+			GLFWwindow* window;
+			RenderManager* rm;
+			float timer;
 	};
 }

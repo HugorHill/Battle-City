@@ -195,7 +195,7 @@ void RenderManager::init(int w, int h)
 		return;
 	}
 
-	glfwSetInputMode(_ptr(engine, Engine)->window, GLFW_STICKY_KEYS, GL_TRUE);
+	//glfwSetInputMode(_ptr(engine, Engine)->window, GLFW_STICKY_KEYS, GL_TRUE);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
