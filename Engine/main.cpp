@@ -17,7 +17,7 @@ void init_scenes(Engine* engine)
 
 	Scene* onePlayers = new Scene(engine);
 	onePlayers->push_gameObject(new gui::PassWindow);
-	//Map* map = new Map(engine, map);
+	Map* map = new Map(engine, map);
 	//onePlayers->push_gameObject(map);
 	onePlayers->init();
 	engine->push_scene(onePlayers);
