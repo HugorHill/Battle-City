@@ -5,7 +5,7 @@
 
 class Bullet : public GameObject {
 protected:
-	static int BulletSpeed; 
+	static float BulletSpeed; 
 	int direction; //0 - up, 1 - right, 2 - down, 3 - left
 	int coordX;
 	int coordY;
@@ -13,7 +13,7 @@ protected:
 public:
 	
 	static double time;
-	Bullet(int x, int y, int dir);
+	Bullet(int x, int y, int dir, void* _p);
 	void del();
 	int getX() { return coordX; }
 	int getY() { return coordY; }

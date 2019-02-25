@@ -15,14 +15,15 @@ void init_scenes(Engine* engine)
 
 	
 
-	Scene* onePlayers = new Scene(engine);
-	//onePlayers->push_gameObject(new gui::PassWindow);
-	onePlayers->push_gameObject(new Map);
-	onePlayers->init();
-	engine->push_scene(onePlayers);
+	Scene* onePlayer = new Scene(engine);
+	onePlayer->push_gameObject(new Map);
+	onePlayer->init();
+	engine->push_scene(onePlayer);
 
-
-	engine->push_scene(onePlayers);
+	Scene* twoPlayers = new Scene(engine);
+	twoPlayers->push_gameObject(new gui::PassWindow);
+	twoPlayers->init();
+	engine->push_scene(twoPlayers);
 
 
 

@@ -16,7 +16,7 @@ double Map::GetTime(){
 }
 void Map :: init(void* _p) {
 	engine = _p;
-	PanzerPlayer temp(0, 0, 0,std_vel,_p, this);
+	PanzerPlayer temp(0, 0, 0,0,_p, this);
 	player = temp;
 	CountBot = 0;
 	CountBullet = 0;
@@ -28,7 +28,6 @@ void Map :: init(void* _p) {
 		for (int j = 0; j < 32; j++) {
 			map[i][j] = s[j] - '0';
 		}
-		std::cout << i << std::endl;
 	}
 	
 	textures.resize(5);
@@ -62,7 +61,9 @@ void Map :: draw() {
 
 void Map::logic() {
 	player.logic();
-
+	if (glfwGetKey(_ptr(engine, Engine)->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+		_ptr(engine, Engine)->set_current_scene(0);
+	}
 }
 
 
@@ -70,12 +71,13 @@ void Map :: update() {
 	double currentTime = glfwGetTime();    //пересчёт времени производится один раз между вызовами
 	deltatime = double(currentTime - time);
 	time = currentTime;
-	std::cout << Panzer::time << std::endl;
+	
 	Panzer::time = deltatime;
 	Bullet::time = deltatime;
 	player.update();
 	for (int i = 0; i < CountBullet; i++) {
 		bullets[i].update();
+	
 		int x = (bullets[i].getX() + 256) / 16; // в каком блоке сейчас находится пуля
 		int y = (bullets[i].getY() + 256)/ 16;
 		switch (map[x][y]) {

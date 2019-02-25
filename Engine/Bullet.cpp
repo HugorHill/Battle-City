@@ -3,17 +3,18 @@
 #include "Defines.h"
 #include "Engine.h"
 //you should init static variables
-int Bullet::BulletSpeed = 1;
+float Bullet::BulletSpeed = std_BulletSpeed;
 double Bullet::time = 0;
 
 
 
-Bullet::Bullet(int x, int y,  int dir) {
+Bullet::Bullet(int x, int y,  int dir, void* _p) {
+	engine = _p;
 	coordX = x;
 	coordY = y;	
 	direction = dir;
 	IsAlive = 1;
-	texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.jpg", true);
+	texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.jpg");
 }
 void Bullet :: init(void *p) {
 
@@ -54,5 +55,5 @@ void Bullet :: draw() {
 		angel = 180;
 		break;
 	}
-	_ptr(engine, Engine)->rm.drawSquare(texture, 4, pos, angel);
+	_ptr(engine, Engine)->rm.drawSquare(texture, 8, pos, angel);
 }

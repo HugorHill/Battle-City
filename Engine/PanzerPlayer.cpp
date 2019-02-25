@@ -7,13 +7,13 @@ PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void*_p,void* _map)
 	velocity = vel;
 	direction = dir;
 	IsAlive = 1;
-	std_cooldown = 1;
-	cooldown = Panzer::std_cooldown;
+	cooldown = 0;
 	engine = _p;
 	map = _map;
-	texture =  _ptr(engine,Engine)->mm.loadTexture("map/mainhero.png", true);
+	texture =  _ptr(engine,Engine)->mm.loadTexture("map/mainhero.png");
 }
 void PanzerPlayer::logic() {
+	velocity = 0;
 	if (glfwGetKey(_ptr(engine,Engine)->getWindow(),GLFW_KEY_W) == GLFW_PRESS) {
 		direction = 0;
 		velocity = std_vel;
@@ -30,7 +30,8 @@ void PanzerPlayer::logic() {
 		direction = 3;
 		velocity = std_vel;
 	}
+	
 	if (glfwGetKey(_ptr(engine, Engine)->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS && cooldown <= 0) {
-	Panzer::Shoot();
+	Shoot();
 	}
 }

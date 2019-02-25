@@ -6,8 +6,8 @@ PanzerBot::PanzerBot(float x, float y, int dir, float vel, void*_p, void* _map,i
 	velocity = vel;
 	direction = dir;
 	IsAlive = 1;
-	std_cooldown = 1;
-	cooldown = Panzer::std_cooldown;
+	
+	cooldown = 0;
 	engine = _p;
 	map = _map;
 	switch (type) {
