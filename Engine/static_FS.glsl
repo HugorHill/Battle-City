@@ -5,5 +5,5 @@ out vec4 color;
 uniform sampler2D picture;
 
 void main(){
-  color = vec4(texture(picture,texture_coord).rgb,1);
+  color = texture(picture,texture_coord).rgba;
 }
