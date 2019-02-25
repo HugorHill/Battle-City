@@ -4,6 +4,6 @@
 class PanzerPlayer : public Panzer {
 public:
 	PanzerPlayer() {};
-	PanzerPlayer(int x,int y, int vel, int dir,void* _p,void* _map);
+	PanzerPlayer(float x,float y, int dir, float vel,void* _p,void* _map);
 	void logic();
 };

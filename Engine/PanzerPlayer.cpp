@@ -1,7 +1,7 @@
 #pragma once
 #include "PanzerPlayer.h"
 
-PanzerPlayer::PanzerPlayer(int x,int y,int dir,int vel,void*_p,void* _map) {
+PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void*_p,void* _map) {
 	coordX = x;
 	coordY = y;
 	velocity = vel;
@@ -11,7 +11,7 @@ PanzerPlayer::PanzerPlayer(int x,int y,int dir,int vel,void*_p,void* _map) {
 	cooldown = Panzer::std_cooldown;
 	engine = _p;
 	map = _map;
-	texture =  _ptr(engine,Engine)->mm.loadTexture("map/mainhero", true);
+	texture =  _ptr(engine,Engine)->mm.loadTexture("map/mainhero.jpg", true);
 }
 void PanzerPlayer::logic() {
 	if (glfwGetKey(_ptr(engine,Engine)->getWindow(),GLFW_KEY_W) == GLFW_PRESS) {

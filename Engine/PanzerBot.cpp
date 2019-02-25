@@ -1,6 +1,6 @@
 #pragma once
 #include "PanzerBot.h"
-PanzerBot::PanzerBot(int x, int y, int dir, int vel, void*_p, void* _map,int type) {
+PanzerBot::PanzerBot(float x, float y, int dir, float vel, void*_p, void* _map,int type) {
 	coordX = x;
 	coordY = y;
 	velocity = vel;
@@ -12,11 +12,11 @@ PanzerBot::PanzerBot(int x, int y, int dir, int vel, void*_p, void* _map,int typ
 	map = _map;
 	switch (type) {
 	case 1:
-			texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer1", true);
+		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer1.jpg", true);
 	case 2:
-		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2", true);
+		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.jpg", true);
 	case 3:
-	texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer3", true);
+		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer3.jpg", true);
 	}
 }
 void PanzerBot::logic() {

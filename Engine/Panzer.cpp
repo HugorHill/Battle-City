@@ -37,7 +37,7 @@ void Panzer::update() {
 }
 void Panzer::draw() {
 	glm::vec2 pos = { coordX,coordY };
-	float angel;
+	float angel=0;
 	switch (direction) {
 	case 0: angel = 90;
 		break;

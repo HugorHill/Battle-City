@@ -2,6 +2,7 @@
 #include "Map.h"
 #include <fstream>
 #include <string>
+#include <iostream>
 void Map :: AddBot(PanzerBot p) {
 	bots.push_back(p);
 	CountBot++;
@@ -13,36 +14,43 @@ void Map::AddBullet(Bullet p) {
 double Map::GetTime(){
 	return deltatime;
 }
-void Map :: init(void* p) {
-
-
-}
-Map::Map(void* _p, void * _map) {
-	PanzerPlayer temp(0, 0, std_vel, 0, _p, _map);
+void Map :: init(void* _p) {
+	engine = _p;
+	PanzerPlayer temp(0, 0, 0,std_vel,_p, this);
 	player = temp;
-	bots.clear();
-	bullets.clear();
 	CountBot = 0;
 	CountBullet = 0;
 	std::ifstream in;
-	in.open("map/map1.txt");
+	in.open("map/Map1.txt");
 	for (int i = 0; i < 32; i++) {
 		std::string s;
 		getline(in, s);
 		for (int j = 0; j < 32; j++) {
-			map[i][j] = s[j]-'0';
+			map[i][j] = s[j] - '0';
 		}
+		std::cout << i << std::endl;
 	}
-	textures[1] = _ptr(engine, Engine)->mm.loadTexture("map/grass", true);
-	textures[2] = _ptr(engine, Engine)->mm.loadTexture("map/brick", true);
-	textures[3]=_ptr(engine, Engine)->mm.loadTexture("map/beton", true);
-	textures[4] = _ptr(engine, Engine)->mm.loadTexture("map/water", true);
+	
+	textures.resize(5);
+	textures.reserve(5);
+	textures[1] = _ptr(engine, Engine)->mm.loadTexture("map/grass.jpg");
+	textures[2] = _ptr(engine, Engine)->mm.loadTexture("map/brick.jpg");
+	textures[3] = _ptr(engine, Engine)->mm.loadTexture("map/beton.jpg");
+	textures[4] = _ptr(engine, Engine)->mm.loadTexture("map/water.jpg");
 	time = glfwGetTime();
 	deltatime = 0;
-
-}
-void Map :: draw() {
 	
+}
+
+void Map :: draw() {	
+	for (int i = 0; i < 32; i++) {
+		for (int j = 0; j < 32; j++) {
+			if (map[i][j] != 0) {
+				_ptr(engine, Engine)->rm.drawSquare(textures[map[i][j]], 16, {16*i-256+8,16*j-256+8}, 0);
+			}
+
+		}
+	}
 	for (int i = 0; i < CountBullet; i++) {
 		bullets[i].draw();
 	}
@@ -50,25 +58,22 @@ void Map :: draw() {
 		bots[i].draw();
 	}
 	player.draw();
-	for (int i = 0; i < 32; i++) {
-		for (int j = 0; j < 32; j++) {
-			if (map[i][j] != 0) {
-				_ptr(engine, Engine)->rm.drawSquare(textures[map[i][j]], 16, {16*i-256,16*j-256}, 0);
-			}
-
-		}
-	}
 }
 
-void Map::logic() {}
+void Map::logic() {
+	player.logic();
+
+}
 
 
 void Map :: update() {
 	double currentTime = glfwGetTime();    //пересчёт времени производится один раз между вызовами
 	deltatime = double(currentTime - time);
 	time = currentTime;
+	std::cout << Panzer::time << std::endl;
 	Panzer::time = deltatime;
 	Bullet::time = deltatime;
+	player.update();
 	for (int i = 0; i < CountBullet; i++) {
 		bullets[i].update();
 		int x = (bullets[i].getX() + 256) / 16; // в каком блоке сейчас находится пуля

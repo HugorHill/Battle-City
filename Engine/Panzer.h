@@ -5,9 +5,9 @@
 #include <vector>
 class Panzer : public GameObject {
 	protected:
-	int coordX;
-	int coordY;
-	int velocity;
+	float coordX;
+	float coordY;
+	float velocity;
 	int direction; //направление 0-up, 1-right, 2-down, 3-left
 	
 	double cooldown;

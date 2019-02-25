@@ -23,7 +23,6 @@ public :
 	void draw();
 	void logic() ;
 	void update();
-	Map(void* _p, void * _map);
 	void AddBot(PanzerBot p);
 	void AddBullet(Bullet p);
 	double GetTime();
