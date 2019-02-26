@@ -6,17 +6,16 @@ PanzerBot::PanzerBot(float x, float y, int dir, float vel, void*_p, void* _map,i
 	velocity = vel;
 	direction = dir;
 	IsAlive = 1;
-	
 	cooldown = 0;
 	engine = _p;
 	map = _map;
 	switch (type) {
 	case 1:
-		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer1.jpg", true);
+		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer1.jpg");
 	case 2:
-		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.jpg", true);
+		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.jpg");
 	case 3:
-		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer3.jpg", true);
+		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer3.jpg");
 	}
 }
 void PanzerBot::logic() {

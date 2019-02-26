@@ -108,16 +108,26 @@ void Map :: update() {
 			bullets_upd.push_back(bullets[i]);
 		}
 	}
-	bullets.clear();
 	CountBullet = bullets_upd.size();
-	bullets = bullets_upd; 
+	bullets.resize(CountBullet);
+	for (int i = 0; i < CountBullet; i++) {
+		bullets[i] = bullets_upd[i];
+	}
 	std::vector <PanzerBot> bots_upd;
 	for (int i = 0; i < CountBot; i++) {
 		if (bots[i].IsAlive == 1) {
 			bots_upd.push_back(bots[i]);
 		}
 	}
-	bots.clear();
 	CountBot = bots_upd.size();
-	bots=bots_upd;
+	bots.resize(CountBot);
+	for (int i = 0; i < CountBot; i++) {
+		bots[i] = bots_upd[i];
+	}
+
+	if (CountBot < 6 && rand() % 100 < 20) {
+		PanzerBot p(20, 20, 0, 200, engine, this, 2);
+		AddBot(p);
+	}
+
 }

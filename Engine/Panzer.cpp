@@ -19,7 +19,7 @@ void Panzer::Shoot() {
 }
 
 
-
+//сделать в апдейте проверку столкновений
 void Panzer::update() {
 	if (direction == 0) {
 		coordY += velocity * time;

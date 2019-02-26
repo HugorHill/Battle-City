@@ -13,6 +13,7 @@ protected:
 public:
 	
 	static double time;
+	Bullet() {};
 	Bullet(int x, int y, int dir, void* _p);
 	void del();
 	int getX() { return coordX; }
