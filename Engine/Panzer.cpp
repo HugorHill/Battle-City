@@ -17,6 +17,11 @@ void Panzer::Shoot() {
 	_ptr(map,Map)->AddBullet(p); // use #include "Defines.h" and write like this: _ptr(map,Map)->AddBullet(p);
 	cooldown = std_cooldown;
 }
+float  Panzer :: dist(Panzer* a, Panzer* b) {
+	float dx = a->getX() - b->getX();
+	float dy = a->getY() - b->getY();
+	return sqrt(dx*dx + dy * dy);
+}
 
 
 //сделать в апдейте проверку столкновений

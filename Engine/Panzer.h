@@ -28,5 +28,6 @@ class Panzer : public GameObject {
 		int IsAlive; // состояние 1 жив, 0- уничтожить
 		void Shoot();
 		void CancelMove();
+		static float dist(Panzer* a,Panzer* b);
 
 };

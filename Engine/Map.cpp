@@ -69,18 +69,20 @@ void Map::logic() {
 
 
 void Map :: update() {
+	int doupd1 = 1;
+	int doupd2 = 2;
 	double currentTime = glfwGetTime();    //пересчЄт времени производитс€ один раз между вызовами
 	deltatime = double(currentTime - time);
 	time = currentTime;
 	
 	Panzer::time = deltatime;
 	Bullet::time = deltatime;
-	player.update();
-	player.logic();  //внутри этой функции провер€ютс€ столкновени€ со стенами и поведение бота
+	PanzerPlayer now = player;
+	now.update();
 
-	glm::vec2 right_top, right_bottom, left_top, left_bottom;
-	float x0 = player.getX();
-	float y0 = player.getY();
+	glm::vec2 right_top, right_bottom, left_top, left_bottom; //столкновени€ с ландшафтом
+	float x0 = now.getX();
+	float y0 = now.getY();
 	right_top = glm::vec2(x0, y0) + glm::vec2(panzer_width, panzer_width);
 	right_bottom = glm::vec2(x0, y0) + glm::vec2(panzer_width, -panzer_width);
 	left_top = glm::vec2(x0, y0) + glm::vec2(-panzer_width, panzer_width);
@@ -93,8 +95,21 @@ void Map :: update() {
 		std::cout << rt << " " << rb << " " << lt << " " << lb << std::endl;
 	}
 	if (lb == 2 || lb == 3 || lt == 2 || lt == 3 || rb == 2 || rb == 3 || rt == 2 || rt == 3) {
-		player.CancelMove();
+		doupd1 = 0;
 	}
+	for (int i = 0; i < CountBot; i++) { //можно доделать под 2 игроков
+		if (abs(bots[i].getX() - player.getX()) <= 2 * panzer_width &&
+			abs(bots[i].getY() - player.getY()) <= 2 * panzer_width) {
+			if ( Panzer::dist(&now, &bots[i]) <= Panzer::dist(&player, &bots[i])) {
+				doupd1 = 0;
+			}
+		}
+
+	}
+	if (doupd1 == 1) {
+		player.update();
+	}
+	player.logic();  //внутри этой функции провер€ютс€ столкновени€ со стенами и поведение бота
 	
 	for (int i = 0; i < CountBullet; i++) {
 		bullets[i].update();
@@ -110,11 +125,20 @@ void Map :: update() {
 		}
 	}
 	for (int i = 0; i < CountBot; i++) {
-		bots[i].logic();  //внутри этой функции провер€ютс€ столкновени€ со стенами и поведение бота
-		bots[i].update();
+		int doupd = 1;
+		for (int j = 0; j < CountBot; j++) {  //проверка столкновений с танками
+			if (j != i && abs(bots[i].getX() - bots[j].getX()) <=2*panzer_width &&
+				abs(bots[i].getY() - bots[j].getY())<=2*panzer_width) {
+				doupd = 0;
+			}
+		}
+		PanzerBot now = bots[i];
+		
+		bots[i].logic();
+		now.update(); //проверка столкновений с элементами ландшафта
 		glm::vec2 right_top, right_bottom, left_top, left_bottom;
-		float x0 = bots[i].getX();
-		float y0 = bots[i].getY();
+		float x0 = now.getX();
+		float y0 = now.getY();
 		right_top = glm::vec2(x0, y0) + glm::vec2(panzer_width, panzer_width);
 		right_bottom = glm::vec2(x0,y0) + glm::vec2(panzer_width, -panzer_width);
 		left_top = glm::vec2(x0,y0) + glm::vec2(-panzer_width, panzer_width);
@@ -127,11 +151,14 @@ void Map :: update() {
 			std::cout << rt << " " << rb << " " << lt << " " << lb << std::endl;
 		}
 		if (lb == 2 || lb == 3 || lt == 2 || lt == 3 || rb == 2 || rb == 3 || rt == 2 || rt == 3) {
-			bots[i].CancelMove();
+			doupd = 0;
+		}	
+		if (doupd == 1) {
+			bots[i].update();
 		}
-
-		
 	}
+	
+	
 	for (int i = 0; i < CountBot; i++) {
 		for (int j = 0; j < CountBullet; j++) {
 			if (abs(bullets[j].getX() - bots[i].getX()) <= panzer_width &&
