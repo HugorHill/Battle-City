@@ -21,21 +21,42 @@ void Panzer::Shoot() {
 
 //сделать в апдейте проверку столкновений
 void Panzer::update() {
-	if (direction == 0) {
+
+	switch (direction) {
+	case 0:
 		coordY += velocity * time;
-	}
-	if (direction == 1) {
+		break;
+	case 1:
 		coordX += velocity * time;
-	}
-	if (direction == 2) {
+		break;
+	case 2:
 		coordY -= velocity * time;
-	}
-	if (direction == 3) {
+		break;
+	case 3:
 		coordX -= velocity * time;
+		break;
 	}
+
 	if (cooldown > -1) {
 		cooldown -= Panzer::time;
 	}
+}
+void Panzer::CancelMove() {
+	switch(direction) {
+	case 0:
+		coordY += -velocity * time;
+		break;
+	case 1:
+		coordX += -velocity * time;
+		break;
+	case 2:
+		coordY -= -velocity * time;
+		break;
+	case 3:
+		coordX -= -velocity * time;
+		break;
+	}
+
 }
 void Panzer::draw() {
 	glm::vec2 pos = { coordX,coordY };
@@ -54,3 +75,4 @@ void Panzer::draw() {
 	}
 	_ptr(engine, Engine)->rm.drawSquare(texture, 24, pos, angel);
 }
+

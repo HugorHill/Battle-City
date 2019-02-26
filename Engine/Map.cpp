@@ -45,7 +45,8 @@ void Map :: draw() {
 	for (int i = 0; i < 32; i++) {
 		for (int j = 0; j < 32; j++) {
 			if (map[i][j] != 0) {
-				_ptr(engine, Engine)->rm.drawSquare(textures[map[i][j]], 16, {16*i-256+8,16*j-256+8}, 0);
+				_ptr(engine, Engine)->rm.drawSquare(textures[map[i][j]], 16,
+					{16*i-256+square_width,16*j-256+square_width}, 0);
 			}
 
 		}
@@ -75,6 +76,26 @@ void Map :: update() {
 	Panzer::time = deltatime;
 	Bullet::time = deltatime;
 	player.update();
+	player.logic();  //внутри этой функции провер€ютс€ столкновени€ со стенами и поведение бота
+
+	glm::vec2 right_top, right_bottom, left_top, left_bottom;
+	float x0 = player.getX();
+	float y0 = player.getY();
+	right_top = glm::vec2(x0, y0) + glm::vec2(panzer_width, panzer_width);
+	right_bottom = glm::vec2(x0, y0) + glm::vec2(panzer_width, -panzer_width);
+	left_top = glm::vec2(x0, y0) + glm::vec2(-panzer_width, panzer_width);
+	left_bottom = glm::vec2(x0, y0) + glm::vec2(-panzer_width, -panzer_width);
+	int rt = map[(int)((right_top.x + 256) / 16)][(int)((right_top.y + 256) / 16)];
+	int rb = map[(int)((right_bottom.x + 256) / 16)][(int)((right_bottom.y + 256) / 16)];
+	int lt = map[(int)((left_top.x + 256) / 16)][(int)((left_top.y + 256) / 16)];
+	int lb = map[(int)((left_bottom.x + 256) / 16)][(int)((left_bottom.y + 256) / 16)];
+	if (glfwGetKey(_ptr(engine, Engine)->getWindow(), GLFW_KEY_R) == GLFW_PRESS) {
+		std::cout << rt << " " << rb << " " << lt << " " << lb << std::endl;
+	}
+	if (lb == 2 || lb == 3 || lt == 2 || lt == 3 || rb == 2 || rb == 3 || rt == 2 || rt == 3) {
+		player.CancelMove();
+	}
+	
 	for (int i = 0; i < CountBullet; i++) {
 		bullets[i].update();
 	
@@ -91,17 +112,37 @@ void Map :: update() {
 	for (int i = 0; i < CountBot; i++) {
 		bots[i].logic();  //внутри этой функции провер€ютс€ столкновени€ со стенами и поведение бота
 		bots[i].update();
+		glm::vec2 right_top, right_bottom, left_top, left_bottom;
+		float x0 = bots[i].getX();
+		float y0 = bots[i].getY();
+		right_top = glm::vec2(x0, y0) + glm::vec2(panzer_width, panzer_width);
+		right_bottom = glm::vec2(x0,y0) + glm::vec2(panzer_width, -panzer_width);
+		left_top = glm::vec2(x0,y0) + glm::vec2(-panzer_width, panzer_width);
+		left_bottom = glm::vec2(x0,y0) + glm::vec2(-panzer_width, -panzer_width);
+		int rt = map[(int)((right_top.x + 256) / 16)][(int)((right_top.y + 256) / 16)];
+		int rb = map[(int)((right_bottom.x + 256) / 16)][(int)((right_bottom.y + 256) / 16)];
+		int lt = map[(int)((left_top.x + 256) / 16)][(int)((left_top.y + 256) / 16)];
+		int lb = map[(int)((left_bottom.x + 256) / 16) ][(int)((left_bottom.y + 256) / 16)];
+		if (glfwGetKey(_ptr(engine, Engine)->getWindow(), GLFW_KEY_R) == GLFW_PRESS) {
+			std::cout << rt << " " << rb << " " << lt << " " << lb << std::endl;
+		}
+		if (lb == 2 || lb == 3 || lt == 2 || lt == 3 || rb == 2 || rb == 3 || rt == 2 || rt == 3) {
+			bots[i].CancelMove();
+		}
+
+		
 	}
 	for (int i = 0; i < CountBot; i++) {
 		for (int j = 0; j < CountBullet; j++) {
-			if (abs(bullets[j].getX() - bots[i].getX()) <= 12 &&
-				abs(bullets[j].getY() - bots[i].getY()) <= 12)
+			if (abs(bullets[j].getX() - bots[i].getX()) <= panzer_width &&
+				abs(bullets[j].getY() - bots[i].getY()) <= panzer_width)
 			{
 				bullets[j].del();
 				bots[i].del();
 			}
 		}
 	}
+	
 	std::vector <Bullet> bullets_upd;
 	for (int i = 0; i < CountBullet; i++) {
 		if (bullets[i].IsAlive == 1) {
