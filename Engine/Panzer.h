@@ -23,7 +23,7 @@ class Panzer : public GameObject {
 		void init(void* p) {  }
 		void draw() ;
 		void update();
-		virtual void logic() = 0;
+		virtual void logic() {};
 		double GetCooldown();
 		int IsAlive; // состояние 1 жив, 0- уничтожить
 		void Shoot();
