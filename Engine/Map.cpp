@@ -213,7 +213,7 @@ void Map :: update() {
 	}
 	int r = rand() % 100;
 	if (CountBot < std_max_bots && r < 10 && spawn_timer <=0) {
-		PanzerBot p(spawn_botsx[r%3], spawn_botsy[r%3], 0, std_vel, engine, this, r+1);
+		PanzerBot p(spawn_botsx[r%3], spawn_botsy[r%3], 0, std_vel, engine, this, r%3+1);
 		AddBot(p);
 		spawn_timer = std_spawn_cd;
 	}

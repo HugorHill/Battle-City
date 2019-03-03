@@ -2,7 +2,6 @@
 #include "RenderManager.h"
 #include "Defines.h"
 #include "Engine.h"
-//you should init static variables
 float Bullet::BulletSpeed = std_BulletSpeed;
 double Bullet::time = 0;
 
