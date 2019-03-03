@@ -13,6 +13,10 @@ protected:
 	PanzerPlayer player;	
 	int CountBot;
 	int CountBullet;
+	std::vector <float> spawn_botsx;
+	std::vector <float> spawn_botsy;
+	float spawn_playerx, spawn_playery;
+	float spawn_timer; //время с последнего спавна
 	
 	double time;
 	double deltatime;   //время между кадрами
@@ -27,5 +31,6 @@ public :
 	void AddBot(PanzerBot p);
 	void AddBullet(Bullet p);
 	double GetTime();
+	void destr(float x0, float y0,int i);
 
 };

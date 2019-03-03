@@ -24,5 +24,5 @@ public:
 	void update() ;
 	void logic();
 	void draw();
-
+	float dist(Bullet a);
 };

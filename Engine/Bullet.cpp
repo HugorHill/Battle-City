@@ -57,3 +57,8 @@ void Bullet :: draw() {
 	}
 	_ptr(engine, Engine)->rm.drawSquare(texture, 8, pos, angel);
 }
+float Bullet::dist(Bullet a) {
+	float dx = coordX - a.getX();
+	float dy = coordY - a.getY();
+	return sqrt(dx*dx + dy * dy);
+}

@@ -15,11 +15,21 @@ double Map::GetTime(){
 	return deltatime;
 }
 void Map :: init(void* _p) {
+	spawn_botsx.push_back(128);
+	spawn_botsx.push_back(-128);
+	spawn_botsx.push_back(0);
+	spawn_botsy.push_back(192);
+	spawn_botsy.push_back(192);
+	spawn_botsy.push_back(192);
+	spawn_playerx = 64;
+	spawn_playery = -192;
+	spawn_timer = 0;
 	engine = _p;
-	PanzerPlayer temp(0, 0, 0,0,_p, this);
+	PanzerPlayer temp(spawn_playerx, spawn_playery, 0,0,_p, this);
 	player = temp;
 	CountBot = 0;
 	CountBullet = 0;
+	
 	std::ifstream in;
 	in.open("map/Map1.txt");
 	for (int i = 0; i < 32; i++) {
@@ -66,11 +76,21 @@ void Map::logic() {
 		_ptr(engine, Engine)->set_current_scene(0);
 	}
 }
-
+void Map:: destr(float x0, float y0,int i) {
+	int x = (int)(x0 + 256) / 16; // в каком блоке сейчас находится пуля
+	int y = (int)(y0 + 256) / 16;
+	switch (map[x][y]) {
+	case 2: bullets[i].del();
+		map[x][y] = 0;
+		break;
+	case 3: bullets[i].del();
+		break;
+	}
+}
 
 void Map :: update() {
 	int doupd1 = 1;
-	int doupd2 = 2;
+	int doupd2 = 1;
 	double currentTime = glfwGetTime();    //пересчёт времени производится один раз между вызовами
 	deltatime = double(currentTime - time);
 	time = currentTime;
@@ -83,7 +103,7 @@ void Map :: update() {
 		int doupd = 1;
 		Panzer now = *iter[i];
 		now.update();
-		for (int j = 0; j < iter.size(); j++) {  //проверка столкновений с танками
+		for (int j = 0; j < iter.size(); j++) {  //проверка столкновений танков с танками
 			if (j != i && abs(iter[i]->getX() - iter[j]->getX()) <= 2 * panzer_width &&
 				abs(iter[i]->getY() - iter[j]->getY()) <= 2 * panzer_width) {
 				if (Panzer::dist(&now, iter[j]) <= Panzer::dist(iter[i], iter[j])) {
@@ -91,7 +111,7 @@ void Map :: update() {
 				}
 			}
 		}
-		 //проверка столкновений с элементами ландшафта
+		 //проверка столкновений танков с элементами ландшафта
 		glm::vec2 right_top, right_bottom, left_top, left_bottom;
 		float x0 = now.getX();
 		float y0 = now.getY();
@@ -115,33 +135,52 @@ void Map :: update() {
 	
 	Panzer::time = deltatime;
 	Bullet::time = deltatime;
-	
+	spawn_timer -= deltatime;
+	for (int i = 0; i < CountBot; i++) {
+		bots[i].immortality_time -= deltatime;
+	}
+	player.immortality_time -= deltatime;
 
-	for (int i = 0; i < CountBullet; i++) {
+	for (int i = 0; i < CountBullet; i++) { //столкновения снарядов с картой
 		bullets[i].update();
 
-		int x = (bullets[i].getX() + 256) / 16; // в каком блоке сейчас находится пуля
-		int y = (bullets[i].getY() + 256) / 16;
-		switch (map[x][y]) {
-		case 2: bullets[i].del();
-			map[x][y] = 0;
-			break;
-		case 3: bullets[i].del();
-			break;
-		}
+		float x0 = bullets[i].getX();
+		float y0 = bullets[i].getY();
+		destr(x0, y0, i);
+		destr(x0+4, y0, i);
+		destr(x0-4, y0, i);
+		destr(x0, y0+4, i);
+		destr(x0, y0-4, i);
+
 	}
 	
-	for (int i = 0; i < CountBot; i++) {
-		for (int j = 0; j < CountBullet; j++) {
-			if (abs(bullets[j].getX() - bots[i].getX()) <= panzer_width &&
-				abs(bullets[j].getY() - bots[i].getY()) <= panzer_width)
+	for (int i = 0; i < CountBot; i++) {  //столкновения снарядов с ботами
+		for (int j = 0; j < CountBullet && bots[i].immortality_time <= 0; j++) { //добавить анимацию уничтожения
+			if (abs(bullets[j].getX() - bots[i].getX()) <= 2*panzer_width &&
+				abs(bullets[j].getY() - bots[i].getY()) <= 2*panzer_width)
 			{
 				bullets[j].del();
 				bots[i].del();
 			}
 		}
 	}
-	
+	for (int j = 0; j < CountBullet && player.immortality_time <= 0; j++) {
+		if (abs(bullets[j].getX() - player.getX()) <= 1.3 * panzer_width &&
+			abs(bullets[j].getY() - player.getY()) <= 1.3 * panzer_width)
+		{
+			bullets[j].del();
+			
+		}
+	}
+	for (int i = 0; i < CountBullet; i++) {
+		for (int j = i+1; j < CountBullet; j++) {
+			if (bullets[i].dist(bullets[j]) <= max_bullet_dist) { //можно добавить анимацию взрыва
+				bullets[i].del();
+				bullets[j].del();
+			}
+		
+		}
+	}
 	std::vector <Bullet> bullets_upd;
 	for (int i = 0; i < CountBullet; i++) {
 		if (bullets[i].IsAlive == 1) {
@@ -164,10 +203,10 @@ void Map :: update() {
 	for (int i = 0; i < CountBot; i++) {
 		bots[i] = bots_upd[i];
 	}
-
-	if (CountBot < 6 && rand() % 100 < 20) {
-		PanzerBot p(20, 20, 0, 200, engine, this, 2);
+	int r = rand() % 500;
+	if (CountBot < 6 && r < 3 && spawn_timer <=0) {
+		PanzerBot p(spawn_botsx[r], spawn_botsy[r], 0, std_vel, engine, this, r+1);
 		AddBot(p);
+		spawn_timer = std_spawn_cd;
 	}
-
 }

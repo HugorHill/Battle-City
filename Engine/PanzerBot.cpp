@@ -12,10 +12,13 @@ PanzerBot::PanzerBot(float x, float y, int dir, float vel, void*_p, void* _map,i
 	switch (type) {
 	case 1:
 		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer1.jpg");
+		break;
 	case 2:
 		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.jpg");
+		break;
 	case 3:
 		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer3.jpg");
+		break;
 	}
 }
 void PanzerBot::logic() {

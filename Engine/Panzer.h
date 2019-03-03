@@ -15,6 +15,7 @@ class Panzer : public GameObject {
 	GLuint texture;
 	public:
 		Panzer() {};
+		float immortality_time; //оставшееся время бессмертия
 		static void* map;
 		static double time; // время между кадрами
 		Panzer(void*p) { init(p); }; //у танка игрока и бота отличаются только функции логики

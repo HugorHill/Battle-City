@@ -13,9 +13,27 @@ double Panzer::GetCooldown() {
 	return cooldown;
 }
 void Panzer::Shoot() {
-	Bullet p(coordX, coordY, direction,engine);
+	float x0, y0;
+	x0 =coordX;
+	y0 = coordY;
+	switch (direction) {
+	case 0:
+		y0 += panzer_width;
+		break;
+	case 1:
+		x0 += panzer_width;
+		break;
+	case 2:
+		y0 -= panzer_width;
+		break;
+	case 3:
+		x0 -= panzer_width;
+		break;
+	}
+	Bullet p(x0, y0, direction,engine);
 	_ptr(map,Map)->AddBullet(p); // use #include "Defines.h" and write like this: _ptr(map,Map)->AddBullet(p);
 	cooldown = std_cooldown;
+	immortality_time = std_immortality_time;
 }
 float  Panzer :: dist(Panzer* a, Panzer* b) {
 	float dx = a->getX() - b->getX();
