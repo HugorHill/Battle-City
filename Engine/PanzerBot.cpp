@@ -9,6 +9,7 @@ PanzerBot::PanzerBot(float x, float y, int dir, float vel, void*_p, void* _map,i
 	cooldown = 0;
 	engine = _p;
 	map = _map;
+	time_turn = std_time_turn;
 	switch (type) {
 	case 1:
 		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer1.jpg");
@@ -22,6 +23,12 @@ PanzerBot::PanzerBot(float x, float y, int dir, float vel, void*_p, void* _map,i
 	}
 }
 void PanzerBot::logic() {
-
-
+	int r = rand()%100;
+	if (r < 10 && time_turn <= 0) {
+		direction = r % 4;
+		time_turn = std_time_turn;
+	}
+	if (cooldown <= 0 && r < 5) {
+		Shoot();
+	} 
 }

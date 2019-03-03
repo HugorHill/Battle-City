@@ -72,6 +72,9 @@ void Map :: draw() {
 
 void Map::logic() {
 	player.logic();
+	for (int i = 0; i < CountBot; i++) {
+		bots[i].logic();
+	}
 	if (glfwGetKey(_ptr(engine, Engine)->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 		_ptr(engine, Engine)->set_current_scene(0);
 	}
@@ -108,6 +111,7 @@ void Map :: update() {
 				abs(iter[i]->getY() - iter[j]->getY()) <= 2 * panzer_width) {
 				if (Panzer::dist(&now, iter[j]) <= Panzer::dist(iter[i], iter[j])) {
 					doupd = 0;
+					iter[i]->time_turn = 0;
 				}
 			}
 		}
@@ -126,6 +130,8 @@ void Map :: update() {
 		
 		if (lb == 2 || lb == 3 || lt == 2 || lt == 3 || rb == 2 || rb == 3 || rt == 2 || rt == 3) {
 			doupd = 0;
+			iter[i]->time_turn = 0;
+
 		}
 		if (doupd == 1) {
 			iter[i]->update();
@@ -138,6 +144,7 @@ void Map :: update() {
 	spawn_timer -= deltatime;
 	for (int i = 0; i < CountBot; i++) {
 		bots[i].immortality_time -= deltatime;
+		bots[i].time_turn -= deltatime;
 	}
 	player.immortality_time -= deltatime;
 
@@ -156,8 +163,8 @@ void Map :: update() {
 	
 	for (int i = 0; i < CountBot; i++) {  //столкновения снарядов с ботами
 		for (int j = 0; j < CountBullet && bots[i].immortality_time <= 0; j++) { //добавить анимацию уничтожения
-			if (abs(bullets[j].getX() - bots[i].getX()) <= 2*panzer_width &&
-				abs(bullets[j].getY() - bots[i].getY()) <= 2*panzer_width)
+			if (abs(bullets[j].getX() - bots[i].getX()) <= 1.3*panzer_width &&
+				abs(bullets[j].getY() - bots[i].getY()) <= 1.3*panzer_width)
 			{
 				bullets[j].del();
 				bots[i].del();
@@ -169,6 +176,7 @@ void Map :: update() {
 			abs(bullets[j].getY() - player.getY()) <= 1.3 * panzer_width)
 		{
 			bullets[j].del();
+			player.gg();
 			
 		}
 	}
@@ -203,8 +211,8 @@ void Map :: update() {
 	for (int i = 0; i < CountBot; i++) {
 		bots[i] = bots_upd[i];
 	}
-	int r = rand() % 500;
-	if (CountBot < 6 && r < 3 && spawn_timer <=0) {
+	int r = rand() % 100;
+	if (CountBot < std_max_bots && r < 3 && spawn_timer <=0) {
 		PanzerBot p(spawn_botsx[r], spawn_botsy[r], 0, std_vel, engine, this, r+1);
 		AddBot(p);
 		spawn_timer = std_spawn_cd;

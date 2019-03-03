@@ -14,6 +14,7 @@ class Panzer : public GameObject {
 	// указатель на карту, используемую в игре
 	GLuint texture;
 	public:
+		float time_turn;
 		Panzer() {};
 		float immortality_time; //оставшееся время бессмертия
 		static void* map;

@@ -10,3 +10,5 @@
 #define std_spawn_cd 5
 #define std_immortality_time 0.1 
 #define max_bullet_dist 10
+#define std_time_turn 1 //время между поворотами
+#define std_max_bots 5

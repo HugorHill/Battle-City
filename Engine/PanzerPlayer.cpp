@@ -11,6 +11,10 @@ PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void*_p,void* _map)
 	engine = _p;
 	map = _map;
 	texture =  _ptr(engine,Engine)->mm.loadTexture("map/mainhero.png");
+	time_turn = std_time_turn;
+}
+void PanzerPlayer::gg() {
+	_ptr(engine, Engine)->set_current_scene(0);
 }
 void PanzerPlayer::logic() {
 	velocity = 0;
