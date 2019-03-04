@@ -13,7 +13,7 @@ Bullet::Bullet(int x, int y,  int dir, void* _p) {
 	coordY = y;	
 	direction = dir;
 	IsAlive = 1;
-	texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.jpg");
+	texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.png");
 }
 void Bullet :: init(void *p) {
 
