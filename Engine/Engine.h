@@ -22,7 +22,7 @@ class Engine
 	friend class Scene;
 	friend class RenderManager;
 	public:
-		Engine() {};
+		Engine() { GameObject::engine = this; };
 		~Engine();
 		void init(); // инициализация всех прееменных для корректной работы
 		void create_var(std::string name, int size); // создание новой глобальной переменной для движка

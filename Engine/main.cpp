@@ -1,13 +1,12 @@
+#include <iostream>
 #include "Engine.h"
 #include "Gui.h"
-#include <iostream>
 #include "Map.h"
-
-
-
+#include "DynamicMap.h"
 
 void init_scenes(Engine* engine)
 {
+
 	Scene* mainMenu = new Scene(engine);
 	mainMenu->push_gameObject(new gui::Menu);
 	mainMenu->init();

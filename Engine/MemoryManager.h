@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include <GL\glew.h>
@@ -12,13 +11,14 @@
 //виртуальный класс для игровых объектов
 class GameObject
 {
+	friend class Engine;
 	public:
 		virtual void init(void* p) = 0;
 		virtual void draw() = 0;
 		virtual void logic() = 0;
 		virtual void update() = 0;
 	protected:
-		void* engine;
+		static void* engine;
 };
 
 //========================
