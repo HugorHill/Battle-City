@@ -104,7 +104,7 @@ void Map :: update() {
 	}
 	for (int i = 0; i < iter.size(); i++) {
 		int doupd = 1;
-		Panzer now = *iter[i];
+		PanzerBot now(iter[i]->getX(),iter[i]->getY(),iter[i]->getDir(),iter[i]->getVel(),engine,this,1);
 		now.update();
 		for (int j = 0; j < iter.size(); j++) {  //проверка столкновений танков с танками
 			if (j != i && abs(iter[i]->getX() - iter[j]->getX()) <= 2 * panzer_width &&

@@ -29,16 +29,16 @@ static GLuint key_up_status = 0;
 
 void gui::Menu::logic()
 {
-	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS && key_down_status == GLFW_RELEASE)
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS && key_down_status == GLFW_RELEASE)
 		current_button^=1;
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS && key_up_status == GLFW_RELEASE)
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS && key_up_status == GLFW_RELEASE)
 		current_button^=1;
 
 	if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
 		_ptr(engine, Engine)->set_current_scene(1 + current_button);
 
-	key_down_status = glfwGetKey(window, GLFW_KEY_DOWN);
-	key_up_status = glfwGetKey(window, GLFW_KEY_UP);
+	key_down_status = glfwGetKey(window, GLFW_KEY_S);
+	key_up_status = glfwGetKey(window, GLFW_KEY_W);
 
 }
 

@@ -7,7 +7,12 @@
 
 void* Panzer::map = NULL;
 double Panzer::time = 0;
-
+int Panzer::getDir() {
+	return direction;
+}
+float Panzer::getVel() {
+	return velocity;
+}
 
 double Panzer::GetCooldown() {
 	return cooldown;

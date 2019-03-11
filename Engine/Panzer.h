@@ -16,6 +16,8 @@ class Panzer : public GameObject {
 	public:
 		float time_turn;
 		Panzer() {};
+		int getDir();
+		float getVel();
 		float immortality_time; //оставшееся время бессмертия
 		static void* map;
 		static double time; // время между кадрами
