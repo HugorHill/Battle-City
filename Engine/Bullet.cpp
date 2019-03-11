@@ -7,17 +7,14 @@ double Bullet::time = 0;
 
 
 
-Bullet::Bullet(int x, int y,  int dir, void* _p) {
-	engine = _p;
+Bullet::Bullet(int x, int y,  int dir) {
 	coordX = x;
 	coordY = y;	
 	direction = dir;
 	IsAlive = 1;
 	texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.png");
 }
-void Bullet :: init(void *p) {
 
-}
 void Bullet :: update() {
 	if (direction == 0) {
 		coordY += BulletSpeed * time;

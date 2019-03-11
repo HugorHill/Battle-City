@@ -1,14 +1,13 @@
 #pragma once
 #include "PanzerPlayer.h"
 
-PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void*_p,void* _map) {
+PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	coordX = x;
 	coordY = y;
 	velocity = vel;
 	direction = dir;
 	IsAlive = 1;
 	cooldown = 0;
-	engine = _p;
 	map = _map;
 	texture =  _ptr(engine,Engine)->mm.loadTexture("map/mainhero.png");
 	time_turn = std_time_turn;

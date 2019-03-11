@@ -24,8 +24,7 @@ void Map :: init(void* _p) {
 	spawn_playerx = 64;
 	spawn_playery = -192;
 	spawn_timer = 0;
-	engine = _p;
-	PanzerPlayer temp(spawn_playerx, spawn_playery, 0,0,_p, this);
+	PanzerPlayer temp(spawn_playerx, spawn_playery, 0,0, this);
 	player = temp;
 	CountBot = 0;
 	CountBullet = 0;
@@ -104,7 +103,7 @@ void Map :: update() {
 	}
 	for (int i = 0; i < iter.size(); i++) {
 		int doupd = 1;
-		PanzerBot now(iter[i]->getX(),iter[i]->getY(),iter[i]->getDir(),iter[i]->getVel(),engine,this,1);
+		PanzerBot now(iter[i]->getX(),iter[i]->getY(),iter[i]->getDir(),iter[i]->getVel(),this,1);
 		now.update();
 		for (int j = 0; j < iter.size(); j++) {  //проверка столкновений танков с танками
 			if (j != i && abs(iter[i]->getX() - iter[j]->getX()) <= 2 * panzer_width &&
@@ -213,7 +212,7 @@ void Map :: update() {
 	}
 	int r = rand() % 100;
 	if (CountBot < std_max_bots && r < 10 && spawn_timer <=0) {
-		PanzerBot p(spawn_botsx[r%3], spawn_botsy[r%3], 0, std_vel, engine, this, r%3+1);
+		PanzerBot p(spawn_botsx[r%3], spawn_botsy[r%3], 0, std_vel,this, r%3+1);
 		AddBot(p);
 		spawn_timer = std_spawn_cd;
 	}

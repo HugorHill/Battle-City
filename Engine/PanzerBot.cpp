@@ -1,13 +1,12 @@
 #pragma once
 #include "PanzerBot.h"
-PanzerBot::PanzerBot(float x, float y, int dir, float vel, void*_p, void* _map,int type) {
+PanzerBot::PanzerBot(float x, float y, int dir, float vel, void* _map,int type) {
 	coordX = x;
 	coordY = y;
 	velocity = vel;
 	direction = dir;
 	IsAlive = 1;
 	cooldown = 0;
-	engine = _p;
 	map = _map;
 	time_turn = std_time_turn;
 	switch (type) {

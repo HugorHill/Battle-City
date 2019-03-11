@@ -13,14 +13,13 @@ protected:
 public:
 	
 	static double time;
-	Bullet() {};
-	Bullet(int x, int y, int dir, void* _p);
+	Bullet() {};	
+	Bullet(int x, int y, int dir);
 	void del();
 	int getX() { return coordX; }
 	int getY() { return coordY; }
 	int IsAlive; // состояние 1 летит, 0 - уничтожить
-	Bullet(void* p) {};
-	void init(void *p) ;
+	void init(void *p) {};
 	void update() ;
 	void logic();
 	void draw();

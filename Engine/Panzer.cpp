@@ -35,7 +35,7 @@ void Panzer::Shoot() {
 		x0 -= panzer_width;
 		break;
 	}
-	Bullet p(x0, y0, direction,engine);
+	Bullet p(x0, y0, direction);
 	_ptr(map,Map)->AddBullet(p); // use #include "Defines.h" and write like this: _ptr(map,Map)->AddBullet(p);
 	cooldown = std_cooldown;
 	immortality_time = std_immortality_time;
