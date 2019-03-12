@@ -177,14 +177,14 @@ void RenderManager::init(int w, int h)
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	_ptr(engine,Engine)->window = glfwCreateWindow(w, h, title.c_str(), NULL, NULL);
-	if (_ptr(engine, Engine)->window == NULL)
+	engine->window = glfwCreateWindow(w, h, title.c_str(), NULL, NULL);
+	if (engine->window == NULL)
 	{
 		fprintf(stderr, "Невозможно открыть окно GLFW\n");
 		glfwTerminate();
 		return;
 	}
-	glfwMakeContextCurrent(_ptr(engine, Engine)->window);
+	glfwMakeContextCurrent(engine->window);
 	//glfwSwapInterval(1/30.0);
 
 
@@ -195,7 +195,7 @@ void RenderManager::init(int w, int h)
 		return;
 	}
 
-	//glfwSetInputMode(_ptr(engine, Engine)->window, GLFW_STICKY_KEYS, GL_TRUE);
+	//glfwSetInputMode(engine->window, GLFW_STICKY_KEYS, GL_TRUE);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -203,8 +203,8 @@ void RenderManager::init(int w, int h)
 	rendering::text::init(engine);
 
 	//init structure square
-	square.VAO = _ptr(engine, Engine)->mm.getVAO();
-	square.pos = _ptr(engine, Engine)->mm.getVBO();
+	square.VAO = engine->mm.getVAO();
+	square.pos = engine->mm.getVBO();
 	square.shader = Shader("static", engine);
 
 	glBindVertexArray(square.pos);
@@ -227,7 +227,7 @@ void RenderManager::init(int w, int h)
 
 void RenderManager::updateScreen()
 {
-	glfwSwapBuffers(_ptr(engine, Engine)->window);
+	glfwSwapBuffers(engine->window);
 }
 
 //функция рисования квадратика: размеры и позиция указываются в юнитах, а угол в градусах

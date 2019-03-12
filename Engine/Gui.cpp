@@ -4,14 +4,13 @@
 #include <map>
 #include <Windows.h>
 
-void gui::Menu::init(void* p)
+void gui::Menu::init()
 {
-	engine = p;
 	current_button = 0;
-	window = _ptr(engine, Engine)->getWindow();
-	rm = &_ptr(engine, Engine)->rm;
-	bgTextTexture = _ptr(engine, Engine)->mm.loadTexture("menu/bgTextTexture.jpg",true);
-	pointerTexture = _ptr(engine, Engine)->mm.loadTexture("menu/tank.jpg");
+	window = engine->getWindow();
+	rm = &engine->rm;
+	bgTextTexture = engine->mm.loadTexture("menu/bgTextTexture.jpg",true);
+	pointerTexture = engine->mm.loadTexture("menu/tank.jpg");
 }
 
 void gui::Menu::draw()
@@ -35,18 +34,17 @@ void gui::Menu::logic()
 		current_button^=1;
 
 	if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
-		_ptr(engine, Engine)->set_current_scene(1 + current_button);
+		engine->set_current_scene(1 + current_button);
 
 	key_down_status = glfwGetKey(window, GLFW_KEY_S);
 	key_up_status = glfwGetKey(window, GLFW_KEY_W);
 
 }
 
-void gui::PassWindow::init(void* p)
+void gui::PassWindow::init()
 {
-	engine = p;
-	rm = &_ptr(engine, Engine)->rm;
-	window = _ptr(engine, Engine)->getWindow();
+	rm = &engine->rm;
+	window = engine->getWindow();
 	timer = glfwGetTime();
 }
 
@@ -65,7 +63,7 @@ void gui::PassWindow::logic()
 	time = glfwGetTime();
 	if (timer > 4)
 	{
-		_ptr(engine, Engine)->set_current_scene(0);
+		engine->set_current_scene(0);
 		timer = 0;
 		time = 0;
 	}

@@ -7,19 +7,19 @@
 void init_scenes(Engine* engine)
 {
 
-	Scene* mainMenu = new Scene(engine);
+	Scene* mainMenu = new Scene();
 	mainMenu->push_gameObject(new gui::Menu);
 	mainMenu->init();
 	engine->push_scene(mainMenu);
 
 	
 
-	Scene* onePlayer = new Scene(engine);
+	Scene* onePlayer = new Scene();
 	onePlayer->push_gameObject(new Map);
 	onePlayer->init();
 	engine->push_scene(onePlayer);
 
-	Scene* twoPlayers = new Scene(engine);
+	Scene* twoPlayers = new Scene();
 	twoPlayers->push_gameObject(new gui::PassWindow);
 	twoPlayers->init();
 	engine->push_scene(twoPlayers);

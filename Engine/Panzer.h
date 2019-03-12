@@ -15,16 +15,15 @@ class Panzer : public GameObject {
 	GLuint texture;
 	public:
 		float time_turn;
-		Panzer() {};
 		int getDir();
 		float getVel();
 		float immortality_time; //оставшееся время бессмертия
 		static void* map;
 		static double time; // время между кадрами
-		Panzer(void*p) { init(p); }; //у танка игрока и бота отличаются только функции логики
+		Panzer() { init(); }; //у танка игрока и бота отличаются только функции логики
 		float getX() { return coordX; }
 		float getY() { return coordY; }
-		void init(void* p) {  }
+		void init() {  }
 		void draw() ;
 		void update();
 		virtual void logic() =0;

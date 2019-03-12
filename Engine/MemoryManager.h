@@ -9,21 +9,19 @@
 
 
 //виртуальный класс для игровых объектов
+class Engine;
 class GameObject
 {
 	friend class Engine;
 	public:
-		virtual void init(void* p) = 0;
+		virtual void init() = 0;
 		virtual void draw() = 0;
 		virtual void logic() = 0;
 		virtual void update() = 0;
 	protected:
-		static void* engine;
+		static Engine* engine;
 };
 
-//========================
-//в очистке стоят заглушки
-//========================
 class MemoryManager
 {
 	public:

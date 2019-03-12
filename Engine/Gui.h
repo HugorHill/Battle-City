@@ -13,7 +13,7 @@ namespace gui
 		public:
 			Menu() {};
 			~Menu() {};
-			void init(void* p);
+			void init();
 			void draw();
 			void logic();
 			void update() {};
@@ -30,7 +30,7 @@ namespace gui
 		public:
 			PassWindow() {};
 			~PassWindow() {};
-			void init(void* p);
+			void init();
 			void draw();
 			void logic();
 			void update() {};

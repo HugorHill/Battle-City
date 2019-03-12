@@ -14,7 +14,7 @@ void Map::AddBullet(Bullet p) {
 double Map::GetTime(){
 	return deltatime;
 }
-void Map :: init(void* _p) {
+void Map :: init() {
 	spawn_botsx.push_back(128);
 	spawn_botsx.push_back(-128);
 	spawn_botsx.push_back(0);
@@ -41,10 +41,10 @@ void Map :: init(void* _p) {
 	
 	textures.resize(5);
 	textures.reserve(5);
-	textures[1] = _ptr(engine, Engine)->mm.loadTexture("map/grass.jpg");
-	textures[2] = _ptr(engine, Engine)->mm.loadTexture("map/brick.jpg");
-	textures[3] = _ptr(engine, Engine)->mm.loadTexture("map/beton.jpg");
-	textures[4] = _ptr(engine, Engine)->mm.loadTexture("map/water.jpg");
+	textures[1] = engine->mm.loadTexture("map/grass.jpg");
+	textures[2] = engine->mm.loadTexture("map/brick.jpg");
+	textures[3] = engine->mm.loadTexture("map/beton.jpg");
+	textures[4] = engine->mm.loadTexture("map/water.jpg");
 	time = glfwGetTime();
 	deltatime = 0;
 	
@@ -54,7 +54,7 @@ void Map :: draw() {
 	for (int i = 0; i < 32; i++) {
 		for (int j = 0; j < 32; j++) {
 			if (map[i][j] != 0) {
-				_ptr(engine, Engine)->rm.drawSquare(textures[map[i][j]], 16,
+				engine->rm.drawSquare(textures[map[i][j]], 16,
 					{16*i-256+square_width,16*j-256+square_width}, 0);
 			}
 
@@ -74,8 +74,8 @@ void Map::logic() {
 	for (int i = 0; i < CountBot; i++) {
 		bots[i].logic();
 	}
-	if (glfwGetKey(_ptr(engine, Engine)->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-		_ptr(engine, Engine)->set_current_scene(0);
+	if (glfwGetKey(engine->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+		engine->set_current_scene(0);
 	}
 }
 void Map:: destr(float x0, float y0,int i) {

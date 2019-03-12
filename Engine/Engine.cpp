@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 using namespace std;
-void* GameObject::engine = NULL;
+Engine* GameObject::engine = NULL;
 
 
 Engine::~Engine()

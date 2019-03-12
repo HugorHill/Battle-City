@@ -24,5 +24,5 @@ void Scene::calculate()
 
 void Scene::init()
 {
-	for (auto &item : gameObjects) item->init(engine);
+	for (auto &item : gameObjects) item->init();
 }

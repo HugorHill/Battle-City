@@ -101,6 +101,6 @@ void Panzer::draw() {
 		angel = 180;
 		break;
 	}
-	_ptr(engine, Engine)->rm.drawSquare(texture, 24, pos, angel);
+	engine->rm.drawSquare(texture, 24, pos, angel);
 }
 

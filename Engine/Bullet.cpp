@@ -12,7 +12,7 @@ Bullet::Bullet(int x, int y,  int dir) {
 	coordY = y;	
 	direction = dir;
 	IsAlive = 1;
-	texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.png");
+	texture = engine->mm.loadTexture("map/panzer2.png");
 }
 
 void Bullet :: update() {
@@ -51,7 +51,7 @@ void Bullet :: draw() {
 		angel = 180;
 		break;
 	}
-	_ptr(engine, Engine)->rm.drawSquare(texture, 8, pos, angel);
+	engine->rm.drawSquare(texture, 8, pos, angel);
 }
 float Bullet::dist(Bullet a) {
 	float dx = coordX - a.getX();

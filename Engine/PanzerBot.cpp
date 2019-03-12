@@ -11,13 +11,13 @@ PanzerBot::PanzerBot(float x, float y, int dir, float vel, void* _map,int type) 
 	time_turn = std_time_turn;
 	switch (type) {
 	case 1:
-		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer1.png");
+		texture = engine->mm.loadTexture("map/panzer1.png");
 		break;
 	case 2:
-		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer2.png");
+		texture = engine->mm.loadTexture("map/panzer2.png");
 		break;
 	case 3:
-		texture = _ptr(engine, Engine)->mm.loadTexture("map/panzer3.png");
+		texture = engine->mm.loadTexture("map/panzer3.png");
 		break;
 	}
 }

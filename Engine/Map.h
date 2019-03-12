@@ -24,7 +24,7 @@ protected:
 	
 public :
 	int map[32][32]; // 0- ничего,1- трава, 2- кирпич, 3 - бетон, 4-вода
-	void init( void* p);
+	void init();
 	void draw();
 	void logic() ;
 	void update();

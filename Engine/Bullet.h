@@ -19,7 +19,7 @@ public:
 	int getX() { return coordX; }
 	int getY() { return coordY; }
 	int IsAlive; // состояние 1 летит, 0 - уничтожить
-	void init(void *p) {};
+	void init() {};
 	void update() ;
 	void logic();
 	void draw();
