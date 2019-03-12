@@ -34,7 +34,18 @@ void gui::Menu::logic()
 		current_button^=1;
 
 	if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
-		engine->set_current_scene(1 + current_button);
+	{
+		switch (current_button)
+		{
+		case 0:
+			engine->sm.set_cur_scene("one player");
+			break;
+		case 1:
+			engine->sm.set_cur_scene("pass window");
+			break;
+		default:break;
+		}
+	}
 
 	key_down_status = glfwGetKey(window, GLFW_KEY_S);
 	key_up_status = glfwGetKey(window, GLFW_KEY_W);
@@ -63,7 +74,7 @@ void gui::PassWindow::logic()
 	time = glfwGetTime();
 	if (timer > 4)
 	{
-		engine->set_current_scene(0);
+		engine->sm.set_cur_scene("main menu");
 		timer = 0;
 		time = 0;
 	}

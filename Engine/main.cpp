@@ -10,23 +10,23 @@ void init_scenes(Engine* engine)
 	Scene* mainMenu = new Scene();
 	mainMenu->push_gameObject(new gui::Menu);
 	mainMenu->init();
-	engine->push_scene(mainMenu);
+	engine->sm.push_scene(mainMenu,"main menu");
 
 	
 
 	Scene* onePlayer = new Scene();
 	onePlayer->push_gameObject(new Map);
 	onePlayer->init();
-	engine->push_scene(onePlayer);
+	engine->sm.push_scene(onePlayer,"one player");
 
 	Scene* twoPlayers = new Scene();
 	twoPlayers->push_gameObject(new gui::PassWindow);
 	twoPlayers->init();
-	engine->push_scene(twoPlayers);
+	engine->sm.push_scene(twoPlayers,"pass window");
 
 
 
-	engine->set_current_scene(0);
+	engine->sm.set_cur_scene("main menu");
 }
 
 int main()

@@ -1,4 +1,3 @@
-
 #pragma once
 #include <GL\glew.h>
 #include <GLFW\glfw3.h>
@@ -8,7 +7,7 @@
 #include "Defines.h"
 #include "RenderManager.h"
 #include "MemoryManager.h"
-#include "Scene.h"
+#include "SceneManager.h"
 #include "Gui.h"
 
 #pragma comment(lib, "opengl32.lib")
@@ -19,22 +18,17 @@
 
 class Engine
 {
-	friend class Scene;
 	friend class RenderManager;
+	friend class SceneManager;
 	public:
-		Engine() { GameObject::engine = this; };
+		Engine();
 		~Engine();
-		void init(); // инициализация всех прееменных для корректной работы
-		void create_var(std::string name, int size); // создание новой глобальной переменной для движка
-		void push_scene(Scene* scene); // добавние сцены в список
-		void run(); // непосредственный запуск бесконечного цикла движка
-		void set_current_scene(int currScene) { current_scene = currScene; }
-		GLFWwindow* getWindow(); //u can get the pointer of current window
+		void init();
+		void run();
+		GLFWwindow* getWindow();
 		MemoryManager mm;
 		RenderManager rm;
+		SceneManager sm;
 	private:
 		GLFWwindow* window;
-		std::map<std::string, void*> variables;
-		std::vector<Scene*> scenes;
-		int current_scene;
 };

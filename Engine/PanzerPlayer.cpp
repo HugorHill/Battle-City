@@ -13,7 +13,7 @@ PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	time_turn = std_time_turn;
 }
 void PanzerPlayer::gg() {
-	engine->set_current_scene(0);
+	engine->sm.set_cur_scene("main menu");
 }
 void PanzerPlayer::logic() {
 	velocity = 0;

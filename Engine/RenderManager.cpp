@@ -162,8 +162,9 @@ namespace rendering
 	}
 }
 
-void RenderManager::init(int w, int h)
+void RenderManager::init(int w, int h, Engine* ptr)
 {
+	engine = ptr;
 	std::string title = "";
 	if (!glfwInit())
 	{

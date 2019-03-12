@@ -75,7 +75,7 @@ void Map::logic() {
 		bots[i].logic();
 	}
 	if (glfwGetKey(engine->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-		engine->set_current_scene(0);
+		engine->sm.set_cur_scene("main menu");
 	}
 }
 void Map:: destr(float x0, float y0,int i) {
