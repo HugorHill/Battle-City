@@ -15,6 +15,8 @@ double Map::GetTime(){
 	return deltatime;
 }
 void Map :: init() {
+	engine->vm.createVar("hero position", sizeof(glm::vec2));
+
 	spawn_botsx.push_back(128);
 	spawn_botsx.push_back(-128);
 	spawn_botsx.push_back(0);
@@ -41,6 +43,7 @@ void Map :: init() {
 	
 	textures.resize(5);
 	textures.reserve(5);
+	textures[0] = engine->mm.loadTexture("map/ground.jpg");
 	textures[1] = engine->mm.loadTexture("map/grass.jpg");
 	textures[2] = engine->mm.loadTexture("map/brick.jpg");
 	textures[3] = engine->mm.loadTexture("map/beton.jpg");
@@ -53,10 +56,8 @@ void Map :: init() {
 void Map :: draw() {	
 	for (int i = 0; i < 32; i++) {
 		for (int j = 0; j < 32; j++) {
-			if (map[i][j] != 0) {
 				engine->rm.drawSquare(textures[map[i][j]], 16,
 					{16*i-256+square_width,16*j-256+square_width}, 0);
-			}
 
 		}
 	}

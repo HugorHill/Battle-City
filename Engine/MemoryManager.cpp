@@ -176,3 +176,32 @@ void MemoryManager::delTexture(GLuint texture)
 	Textures.erase(texture);
 }
 
+
+VariableManager::~VariableManager()
+{
+	for (auto &var : variables) delete var.second.p;
+}
+
+void* VariableManager::getVar(std::string name)
+{
+	return variables[name].p;
+}
+
+void VariableManager::delVar(std::string name)
+{
+	delete variables[name].p;
+	variables.erase(name);
+}
+
+void VariableManager::setVar(std::string name, void* data)
+{
+	void* p = variables[name].p;
+	size_t size = variables[name].size;
+	memcpy(p, data, size);
+}
+
+void VariableManager::createVar(std::string name, size_t size)
+{
+	void* p = malloc(size);
+	variables.insert(std::pair<std::string, VarInfo>(name, { size,p }));
+}

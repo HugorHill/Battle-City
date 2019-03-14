@@ -16,6 +16,7 @@ void PanzerPlayer::gg() {
 	engine->sm.set_cur_scene("main menu");
 }
 void PanzerPlayer::logic() {
+	engine->vm.setVar("hero position", &glm::vec2(coordX, coordY));
 	velocity = 0;
 	if (glfwGetKey(_ptr(engine,Engine)->getWindow(),GLFW_KEY_W) == GLFW_PRESS) {
 		direction = 0;

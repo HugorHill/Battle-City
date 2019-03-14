@@ -29,6 +29,7 @@ class Engine
 		MemoryManager mm;
 		RenderManager rm;
 		SceneManager sm;
+		VariableManager vm;
 	private:
 		GLFWwindow* window;
 };

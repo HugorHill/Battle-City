@@ -46,3 +46,17 @@ private:
 	std::set<GLuint> Shaders;
 	std::set<GLuint> Textures;
 };
+
+class VariableManager
+{
+	public:
+		VariableManager() {};
+		~VariableManager();
+		void* getVar(std::string name);
+		void delVar(std::string name);
+		void setVar(std::string name, void* data);
+		void createVar(std::string, size_t size);
+	private:
+		struct VarInfo{size_t size;void* p;};
+		std::map <std::string,VarInfo> variables;
+};

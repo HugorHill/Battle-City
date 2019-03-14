@@ -236,6 +236,8 @@ void RenderManager::drawSquare(GLuint texture, GLuint size, glm::vec2 pos, float
 {
 	square.shader.start();
 
+	glm::vec2 light_pos = *_ptr(engine->vm.getVar("hero position"), glm::vec2);
+	square.shader.load_vec("light_pos", light_pos);
 	glm::mat4 transformation = glm::mat4(1);
 	pos /= WINDOW_SIZE_UNITS/2.0;
 	transformation = glm::translate(transformation, glm::vec3(pos, 0));
