@@ -1,20 +1,25 @@
 #version 330 core
-layout(location = 0) in vec3 vertexPosition_modelspace;
+layout(location = 0) in vec3 vertex_pos;
 uniform mat4 transf;
 uniform vec2 light_pos;
 out vec2 texture_coord;
 out float brightness;
 
+vec2 get_texture_coords()
+{
+	vec3 pos = vertex_pos;
+	vec2 result = (pos.xy+vec2(1,1))*0.5;
+	result.y = 1-result.y;
+	return result;
+}
 
 
 void main()
 {
-	vec3 pos = (transf*vec4(vertexPosition_modelspace,1)).xyz;
-	vec3 lpos = (transf*vec4(light_pos,0,1)).xyz;
-	gl_Position.xyz = pos;
-	gl_Position.w = 1.0;
-	brightness = min(1, exp(-length(pos-lpos)/10.0) );
-	pos = vertexPosition_modelspace;
-	texture_coord.xy = (pos.xy+vec2(1,1))*0.5;
-	texture_coord.y=1-texture_coord.y;
+	vec2 pos = (transf*vec4(vertex_pos,1)).xy;
+	brightness = min(1, exp(-length(pos-light_pos)*10) );
+
+
+	texture_coord = get_texture_coords();
+	gl_Position = vec4(pos,0,1);
 }
