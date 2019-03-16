@@ -2,6 +2,7 @@
 layout(location = 0) in vec3 vertex_pos;
 uniform mat4 transf;
 uniform vec2 light_pos;
+uniform int count_lights;
 out vec2 texture_coord;
 out float brightness;
 
@@ -17,7 +18,10 @@ vec2 get_texture_coords()
 void main()
 {
 	vec2 pos = (transf*vec4(vertex_pos,1)).xy;
-	brightness = min(1, exp(-length(pos-light_pos)*10) );
+	if(count_lights>0)
+		brightness = min(1, exp(-length(pos-light_pos)) );
+	else
+		brightness = 1;
 
 
 	texture_coord = get_texture_coords();

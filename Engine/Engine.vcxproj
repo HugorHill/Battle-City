@@ -147,7 +147,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="DynamicMap.cpp" />
+    <ClCompile Include="ShadowMap.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Gui.cpp" />
     <ClCompile Include="main.cpp" />
@@ -164,7 +164,7 @@
   <ItemGroup>
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Defines.h" />
-    <ClInclude Include="DynamicMap.h" />
+    <ClInclude Include="ShadowMap.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Gui.h" />
     <ClInclude Include="Map.h" />
@@ -179,6 +179,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="shaders\gauss_FS.glsl" />
+    <None Include="shaders\gauss_VS.glsl" />
+    <None Include="shaders\scene_FS.glsl" />
+    <None Include="shaders\scene_VS.glsl" />
+    <None Include="shaders\triangle_FS.glsl" />
+    <None Include="shaders\triangle_VS.glsl" />
     <None Include="static_FS.glsl" />
     <None Include="static_VS.glsl" />
   </ItemGroup>

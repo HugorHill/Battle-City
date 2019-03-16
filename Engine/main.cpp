@@ -2,7 +2,7 @@
 #include "Engine.h"
 #include "Gui.h"
 #include "Map.h"
-#include "DynamicMap.h"
+#include "ShadowMap.h"
 
 void init_scenes(Engine* engine)
 {
@@ -20,7 +20,7 @@ void init_scenes(Engine* engine)
 	engine->sm.push_scene(onePlayer,"one player");
 
 	Scene* twoPlayers = new Scene();
-	twoPlayers->push_gameObject(new gui::PassWindow);
+	twoPlayers->push_gameObject(new ShadowMap);
 	twoPlayers->init();
 	engine->sm.push_scene(twoPlayers,"pass window");
 

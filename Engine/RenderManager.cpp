@@ -186,7 +186,7 @@ void RenderManager::init(int w, int h, Engine* ptr)
 		return;
 	}
 	glfwMakeContextCurrent(engine->window);
-	glfwSwapInterval(0);
+	//glfwSwapInterval(0);
 
 
 	glewExperimental = true;
@@ -238,10 +238,10 @@ void RenderManager::drawSquare(GLuint texture, GLuint size, glm::vec2 pos, float
 	if(!hero_pos) hero_pos = _ptr(engine->vm.getVar("hero position"), glm::vec2);
 
 	square.shader.start();
-
 	glm::vec2 light_pos = *hero_pos;
 	light_pos /= WINDOW_SIZE_UNITS / 2.0;
 	square.shader.load_vec("light_pos", light_pos);
+	square.shader.load_i("count_lights", 0);
 	glm::mat4 transformation = glm::mat4(1);
 	pos /= WINDOW_SIZE_UNITS/2.0;
 	transformation = glm::translate(transformation, glm::vec3(pos, 0));
