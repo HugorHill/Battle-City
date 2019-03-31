@@ -7,8 +7,10 @@ PanzerBot::PanzerBot(float x, float y, int dir, float vel, void* _map,int type) 
 	direction = dir;
 	IsAlive = 1;
 	cooldown = 0;
+	speed_boost = 1;
 	map = _map;
 	time_turn = std_time_turn;
+	stun_time = 0;
 	switch (type) {
 	case 1:
 		texture = engine->mm.loadTexture("map/panzer1.png");
@@ -20,6 +22,9 @@ PanzerBot::PanzerBot(float x, float y, int dir, float vel, void* _map,int type) 
 		texture = engine->mm.loadTexture("map/panzer3.png");
 		break;
 	}
+}
+bool PanzerBot::operator <(PanzerBot p) const {
+	return (coordX < p.coordX);
 }
 void PanzerBot::logic() {
 	int r = rand()%100;

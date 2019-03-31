@@ -4,6 +4,8 @@
 class PanzerPlayer : public Panzer {
 private:
 	int level;
+	
+
 
 public:
 	PanzerPlayer() {};

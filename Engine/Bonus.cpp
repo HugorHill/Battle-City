@@ -1,5 +1,6 @@
 #pragma once 
 #include "Bonus.h"
+double Bonus::time = 0;
 
 Bonus::Bonus(int x, int y, int t) {
 	coordX = x;
@@ -7,7 +8,7 @@ Bonus::Bonus(int x, int y, int t) {
 	type = t;
 	lifetime = std_bonus_lifetime;
 	texture =  _ptr(engine,Engine)->mm.loadTexture("map/base.png");
-	
+	time = 0;	
 }
 void Bonus::del(PanzerPlayer* player) {
 	player->upgrade(type);

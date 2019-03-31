@@ -9,8 +9,8 @@
 
 class Map : public GameObject  {
 protected:
-	std:: vector<PanzerBot> bots;
-	std::vector <Bullet> bullets;
+	std:: set <PanzerBot> bots;
+	std::set <Bullet> bullets;
 	PanzerPlayer player;	
 	int CountBot;
 	int CountBullet;
@@ -31,7 +31,9 @@ public :
 	void update();
 	void AddBot(PanzerBot p);
 	void AddBullet(Bullet p);
+	void destroy_them_all();
+	void stun_them_all();
 	double GetTime();
-	void destr(float x0, float y0,int i);
+	void destr(float x0, float y0, Bullet* b);
 
 };

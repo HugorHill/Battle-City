@@ -1,5 +1,10 @@
 #pragma once
 #include "PanzerPlayer.h"
+#include <string>
+#include "Map.h"
+
+std::string mainhero[5] = { "map/mainhero0.png","map/mainhero1.png","map/mainhero2.png",
+"map/mainhero3.png","map/mainhero4.png" };
 
 PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	coordX = x;
@@ -9,9 +14,12 @@ PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	IsAlive = 1;
 	cooldown = 0;
 	map = _map;
-	texture =  _ptr(engine,Engine)->mm.loadTexture("map/mainhero.png");
-	time_turn = std_time_turn;
 	level = 1;
+	texture =  _ptr(engine,Engine)->mm.loadTexture(mainhero[level]);
+	time_turn = std_time_turn;	
+	speed_boost = (level-1)/6.0+1;
+	health = 3;
+	stun_time = 0;
 }
 void PanzerPlayer::gg() {
 	engine->sm.set_cur_scene("main menu");
@@ -41,5 +49,25 @@ void PanzerPlayer::logic() {
 	}
 }
 void PanzerPlayer::upgrade(int type) {
-
+	switch (type) {
+	case 1: if (level < 4) {
+		level++;
+		speed_boost = sqrt((float)level);
+	}
+			break;
+	case 2: health++;
+		break;
+	case 3:
+		_ptr(map,Map)->destroy_them_all();
+		break;
+	case 4:
+		_ptr(map,Map)->stun_them_all() ;
+		break;
+	/*case 5:
+		map->save_base();
+		break;*/
+	case 6:
+		immortality_time = std_immortality_time_bonus;
+		break;
+	}
 }

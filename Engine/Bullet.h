@@ -9,12 +9,13 @@ protected:
 	int direction; //0 - up, 1 - right, 2 - down, 3 - left
 	int coordX;
 	int coordY;
-	GLuint texture;
-public:
+	float speed_boost;
 	
+public:
+	GLuint texture;
 	static double time;
 	Bullet() {};	
-	Bullet(int x, int y, int dir);
+	Bullet(int x, int y, int dir,double boost);
 	void del();
 	int getX() { return coordX; }
 	int getY() { return coordY; }
@@ -24,4 +25,5 @@ public:
 	void logic();
 	void draw();
 	float dist(Bullet a);
+	bool operator < (Bullet p) const;
 };

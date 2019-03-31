@@ -13,7 +13,9 @@ int Panzer::getDir() {
 float Panzer::getVel() {
 	return velocity;
 }
-
+/*Panzer::~Panzer() {
+	engine->mm.delTexture(texture);
+}*/
 double Panzer::GetCooldown() {
 	return cooldown;
 }
@@ -35,10 +37,10 @@ void Panzer::Shoot() {
 		x0 -= panzer_width;
 		break;
 	}
-	Bullet p(x0, y0, direction);
+	Bullet p(x0, y0, direction,speed_boost);
 	_ptr(map,Map)->AddBullet(p); // use #include "Defines.h" and write like this: _ptr(map,Map)->AddBullet(p);
-	cooldown = std_cooldown;
-	immortality_time = std_immortality_time;
+	cooldown = std_cooldown/speed_boost;
+	immortality_time =(immortality_time < std_immortality_time) ? std_immortality_time:immortality_time;
 }
 float  Panzer :: dist(Panzer* a, Panzer* b) {
 	float dx = a->getX() - b->getX();
@@ -46,23 +48,24 @@ float  Panzer :: dist(Panzer* a, Panzer* b) {
 	return sqrt(dx*dx + dy * dy);
 }
 
-
 //сделать в апдейте проверку столкновений
 void Panzer::update() {
-
-	switch (direction) {
-	case 0:
-		coordY += velocity * time;
-		break;
-	case 1:
-		coordX += velocity * time;
-		break;
-	case 2:
-		coordY -= velocity * time;
-		break;
-	case 3:
-		coordX -= velocity * time;
-		break;
+	stun_time -= time;
+	if (stun_time < 0) {
+		switch (direction) {
+		case 0:
+			coordY += speed_boost * velocity * time;
+			break;
+		case 1:
+			coordX += speed_boost * velocity * time;
+			break;
+		case 2:
+			coordY -= speed_boost * velocity * time;
+			break;
+		case 3:
+			coordX -= speed_boost * velocity * time;
+			break;
+		}
 	}
 
 	if (cooldown > -1) {
@@ -72,16 +75,16 @@ void Panzer::update() {
 void Panzer::CancelMove() {
 	switch(direction) {
 	case 0:
-		coordY += -velocity * time;
+		coordY += -speed_boost * velocity * time;
 		break;
 	case 1:
-		coordX += -velocity * time;
+		coordX += -speed_boost * velocity * time;
 		break;
 	case 2:
-		coordY -= -velocity * time;
+		coordY -= -speed_boost * velocity * time;
 		break;
 	case 3:
-		coordX -= -velocity * time;
+		coordX -= -speed_boost * velocity * time;
 		break;
 	}
 

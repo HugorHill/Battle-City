@@ -20,6 +20,7 @@ public:
 	void update ();
 	void draw();
 	void logic() {};
+	void init() {};
 	int get_type() { return type; }
 
 

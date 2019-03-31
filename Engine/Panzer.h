@@ -10,16 +10,20 @@ class Panzer : public GameObject {
 	float velocity;
 	int direction; //направление 0-up, 1-right, 2-down, 3-left	
 	double cooldown;
+	double speed_boost;
 	int health; // здоровье
 	
-	// указатель на карту, используемую в игре
-	GLuint texture;
+
+	
 	public:
+		float stun_time; // время в стане
+		GLuint texture;
+		~Panzer() {};
 		float time_turn;
 		int getDir();
 		float getVel();
 		float immortality_time; //оставшееся время бессмертия
-		static void* map;
+		static void* map; 	// указатель на карту, используемую в игре
 		static double time; // время между кадрами
 		Panzer() { init(); }; //у танка игрока и бота отличаются только функции логики
 		float getX() { return coordX; }
@@ -32,5 +36,7 @@ class Panzer : public GameObject {
 		int IsAlive; // состояние 1 жив, 0- уничтожить
 		void Shoot();
 		void CancelMove();
+		void set_cooldown(float cd) { cooldown = cd;}
 		static float dist(Panzer* a,Panzer* b);
+	
 };

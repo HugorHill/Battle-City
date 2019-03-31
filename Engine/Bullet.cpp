@@ -7,26 +7,27 @@ double Bullet::time = 0;
 
 
 
-Bullet::Bullet(int x, int y,  int dir) {
+Bullet::Bullet(int x, int y,  int dir,double boost) {
 	coordX = x;
 	coordY = y;	
 	direction = dir;
+	speed_boost = boost;
 	IsAlive = 1;
 	texture = engine->mm.loadTexture("map/panzer2.png");
 }
 
 void Bullet :: update() {
 	if (direction == 0) {
-		coordY += BulletSpeed * time;
+		coordY += speed_boost*BulletSpeed * time;
 	}
 	if (direction == 1) {
-		coordX+= BulletSpeed * time;
+		coordX+= speed_boost * BulletSpeed * time;
 	}
 	if (direction == 2) {
-		coordY -= BulletSpeed * time;
+		coordY -= speed_boost * BulletSpeed * time;
 	}
 	if (direction == 3) {
-		coordX -= BulletSpeed * time;
+		coordX -= speed_boost * BulletSpeed * time;
 	}
 
 }
@@ -57,4 +58,7 @@ float Bullet::dist(Bullet a) {
 	float dx = coordX - a.getX();
 	float dy = coordY - a.getY();
 	return sqrt(dx*dx + dy * dy);
+}
+bool Bullet ::operator < ( Bullet p) const {
+	return (coordX < p.coordX);
 }
