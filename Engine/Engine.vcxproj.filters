@@ -60,6 +60,9 @@
     <ClCompile Include="ShadowMap.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="Bonus.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -102,6 +105,9 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="ShadowMap.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Bonus.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

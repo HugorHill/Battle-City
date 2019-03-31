@@ -10,6 +10,7 @@ class Panzer : public GameObject {
 	float velocity;
 	int direction; //направление 0-up, 1-right, 2-down, 3-left	
 	double cooldown;
+	int health; // здоровье
 	
 	// указатель на карту, используемую в игре
 	GLuint texture;
@@ -32,5 +33,4 @@ class Panzer : public GameObject {
 		void Shoot();
 		void CancelMove();
 		static float dist(Panzer* a,Panzer* b);
-
 };

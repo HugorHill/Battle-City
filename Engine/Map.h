@@ -3,6 +3,7 @@
 #include "PanzerBot.h"
 #include "PanzerPlayer.h"
 #include "Bullet.h"
+#include "Bonus.h"
 #include <vector>
 #include <set>
 

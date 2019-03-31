@@ -12,3 +12,5 @@
 #define max_bullet_dist 10
 #define std_time_turn 1 //время между поворотами
 #define std_max_bots 10 
+#define std_bonus_lifetime 10
+#define bonus_width 12

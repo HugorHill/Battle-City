@@ -11,6 +11,7 @@ PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	map = _map;
 	texture =  _ptr(engine,Engine)->mm.loadTexture("map/mainhero.png");
 	time_turn = std_time_turn;
+	level = 1;
 }
 void PanzerPlayer::gg() {
 	engine->sm.set_cur_scene("main menu");
@@ -38,4 +39,7 @@ void PanzerPlayer::logic() {
 	if (glfwGetKey(engine->getWindow(), GLFW_KEY_SPACE) == GLFW_PRESS && cooldown <= 0) {
 	Shoot();
 	}
+}
+void PanzerPlayer::upgrade(int type) {
+
 }

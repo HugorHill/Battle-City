@@ -141,6 +141,7 @@ void Map :: update() {
 	
 	Panzer::time = deltatime;
 	Bullet::time = deltatime;
+	Bonus::time = deltatime;
 	spawn_timer -= deltatime;
 	for (int i = 0; i < CountBot; i++) {
 		bots[i].immortality_time -= deltatime;

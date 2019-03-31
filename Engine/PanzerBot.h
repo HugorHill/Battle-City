@@ -7,6 +7,5 @@ public :
 	PanzerBot() {};
 	void logic() ;
 	PanzerBot(float x, float y, int dir, float vel, void* _map,int type);
-	void del() { IsAlive = 0; }
-
+	void del() { IsAlive = 0; }	
 };
