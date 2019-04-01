@@ -108,4 +108,9 @@ void Panzer::draw() {
 	}
 	engine->rm.drawSquare(texture, 2*panzer_width, pos, angel);
 }
-
+void Panzer::del() {
+	health--;
+	if (health <= 0) {
+		IsAlive = 0;
+	}
+}

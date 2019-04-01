@@ -30,7 +30,7 @@ void ShadowMap::init()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	quad_texture = engine->mm.loadTexture("map/water.jpg");
-	gauss_shader = Shader("shaders/gauss", engine);
+	//gauss_shader = Shader("shaders/gauss", engine);
 
 	square.VAO = engine->mm.getVAO();
 	square.pos = engine->mm.getVBO();
@@ -135,7 +135,7 @@ void ShadowMap::draw()
 	}
 
 
-	gauss_shader.start();
+	/*gauss_shader.start();
 	gauss_shader.load_vec("win_size", glm::vec2(700, 700));
 	gauss_shader.load_vec("dir", glm::vec2(1, 0));
 	gauss_shader.load_f("radius", 1.5);
@@ -143,7 +143,7 @@ void ShadowMap::draw()
 	draw_quad();
 	gauss_shader.load_vec("dir", glm::vec2(0, 1));
 	draw_quad();
-	gauss_shader.stop();
+	gauss_shader.stop();*/
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 	if (debug)

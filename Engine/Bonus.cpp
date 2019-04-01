@@ -2,7 +2,7 @@
 #include "Bonus.h"
 double Bonus::time = 0;
 
-Bonus::Bonus(int x, int y, int t) {
+Bonus::Bonus(double x, double y, int t) {
 	coordX = x;
 	coordY = y;
 	type = t;

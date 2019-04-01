@@ -11,9 +11,11 @@ class Map : public GameObject  {
 protected:
 	std:: vector <PanzerBot> bots;
 	std::vector <Bullet> bullets;
+	std::vector<Bonus>bonuses;
 	PanzerPlayer player;	
 	int CountBot;
 	int CountBullet;
+	long long int frags;
 	std::vector <float> spawn_botsx;
 	std::vector <float> spawn_botsy;
 	float spawn_playerx, spawn_playery;
@@ -35,5 +37,5 @@ public :
 	void stun_them_all();
 	double GetTime();
 	void destr(float x0, float y0, Bullet* b);
-
+	void AddBonus(int type);
 };

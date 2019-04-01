@@ -23,6 +23,10 @@ void Map::stun_them_all() {
 		i.set_cooldown(std_stun_time);
 	}
 }
+void Map::AddBonus(int type) {
+	Bonus temp(rand() % (int)map_width, rand() % (int)map_height, type);
+	bonuses.push_back(temp);
+}
 void Map :: init() {
 	engine->vm.createVar("hero position", sizeof(glm::vec2));
 
@@ -74,6 +78,9 @@ void Map :: draw() {
 		i.draw();
 	}
 	for (auto &i : bots) {
+		i.draw();
+	}
+	for (auto &i : bonuses) {
 		i.draw();
 	}
 	player.draw();
@@ -179,6 +186,7 @@ void Map :: update() {
 			{
 				i.del();
 				j.del();
+				frags++;
 			}
 		}
 	}
@@ -188,7 +196,10 @@ void Map :: update() {
 			abs(j.getY() - player.getY()) <= 1.3 * panzer_width &&  player.immortality_time<=0)
 		{
 			j.del();
-			player.gg();
+			player.del();
+			if (player.IsAlive == 0) {
+				player.gg();
+			}
 			
 		}
 	}
@@ -202,7 +213,12 @@ void Map :: update() {
 		
 		}
 	}
-	//std::vector <Bullet> bullets_upd;
+	for (auto &i : bonuses) {
+		if (abs(i.getX() - player.getX()) <= bonus_width + panzer_width ||
+			abs(i.getY() - player.getY()) <= bonus_width + panzer_width) {
+			i.del(&player);
+		}
+	}
 	for (auto it = bullets.begin(); it != bullets.end();) {
 		if (it->IsAlive == 0) {
 			engine->mm.delTexture(it->texture);
@@ -213,15 +229,10 @@ void Map :: update() {
 		}
 	}
 	CountBullet = bullets.size();
-	/*CountBullet = bullets_upd.size();
-	bullets.resize(CountBullet);
-	for (int i = 0; i < CountBullet; i++) {
-		bullets[i] = bullets_upd[i];
-	}*/
-	//std::vector <PanzerBot> bots_upd;
+	
 	for (auto it = bots.begin(); it != bots.end();) {
 		if (it->IsAlive == 0) {
-			//bots_upd.push_back(bots[i]);
+			
 			engine->mm.delTexture(it->texture);
 			it=bots.erase(it);
 		}
@@ -230,15 +241,16 @@ void Map :: update() {
 		}
 	}
 	CountBot = bots.size();
-	/*CountBot = bots_upd.size();
-	bots.resize(CountBot);
-	for (int i = 0; i < CountBot; i++) {
-		bots[i] = bots_upd[i];
-	}*/
 	int r = rand() % 100;
 	if (CountBot < std_max_bots && r < 10 && spawn_timer <=0) {
 		PanzerBot p(spawn_botsx[r%3], spawn_botsy[r%3], 0, std_vel,this, r%3+1);
 		AddBot(p);
 		spawn_timer = std_spawn_cd;
 	}
+	if (frags == frag1 || frags == frag2 || frags == frag3 || frags == frag4) {
+	//if (bonuses.size()<1) {
+		r = rand() % 6 + 1;
+		AddBonus(r);
+	}
+
 }

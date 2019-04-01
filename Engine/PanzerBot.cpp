@@ -12,6 +12,7 @@ PanzerBot::PanzerBot(float x, float y, int dir, float vel, void* _map,int type) 
 	time_turn = std_time_turn;
 	immortality_time = std_immortality_time;
 	stun_time = -1;
+	health = 1;
 	switch (type) {
 	case 1:
 		texture = engine->mm.loadTexture("map/panzer1.png");

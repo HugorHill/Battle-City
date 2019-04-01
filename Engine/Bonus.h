@@ -6,15 +6,15 @@
 #include <vector>
 class Bonus : public GameObject {
 private:
-	int coordX;
-	int coordY;
+	double coordX;
+	double coordY;
 	int type;
 	double lifetime;
 	GLuint texture;
 	
 public:
 	Bonus() {};
-	Bonus(int x, int y, int type);
+	Bonus(double x, double y, int type);
 	static double time;
 	void del(PanzerPlayer*); // вызываем, когда подобрал танк
 	void update ();
@@ -22,8 +22,8 @@ public:
 	void logic() {};
 	void init() {};
 	int get_type() { return type; }
-
-
+	double getX() { return coordX; }
+	double getY() { return coordY; }
 
 };
 /* 1 апгрейд (звезда) 2 добавляет жизнь (танк) 3 взрыв всех врагов (граната)

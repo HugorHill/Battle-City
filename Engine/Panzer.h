@@ -30,6 +30,7 @@ class Panzer : public GameObject {
 		float getY() { return coordY; }
 		void init() {  }
 		void draw() ;
+		void del();
 		void update();
 		virtual void logic() =0;
 		double GetCooldown();
