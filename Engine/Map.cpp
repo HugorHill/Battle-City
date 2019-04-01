@@ -4,11 +4,11 @@
 #include <string>
 #include <iostream>
 void Map :: AddBot(PanzerBot p) {
-	bots.insert(p);
+	bots.push_back(p);
 	CountBot++;
 }
 void Map::AddBullet(Bullet p) {
-	bullets.insert(p);
+	bullets.push_back(p);
 	CountBullet++;
 }
 double Map::GetTime(){
@@ -70,10 +70,10 @@ void Map :: draw() {
 
 		}
 	}
-	for (auto i : bullets) {
+	for (auto &i : bullets) {
 		i.draw();
 	}
-	for (auto i : bots) {
+	for (auto &i : bots) {
 		i.draw();
 	}
 	player.draw();
@@ -81,7 +81,7 @@ void Map :: draw() {
 
 void Map::logic() {
 	player.logic();
-	for (auto i : bots) {
+	for (auto &i : bots) {
 		i.logic();
 	}
 	if (glfwGetKey(engine->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -108,7 +108,7 @@ void Map :: update() {
 	time = currentTime;
 	std::vector <Panzer*> iter;
 	iter.push_back(&player);	//обработка столкновений на итераторах
-	for (auto i : bots) { 
+	for (auto &i : bots) { 
 		iter.push_back(&i);
 	}
 	for (int i = 0; i < iter.size(); i++) {
@@ -152,13 +152,13 @@ void Map :: update() {
 	Bullet::time = deltatime;
 	Bonus::time = deltatime;
 	spawn_timer -= deltatime;
-	for (auto i : bots) {
+	for (auto &i : bots) {
 		i.immortality_time -= deltatime;
 		i.time_turn -= deltatime;
 	}
 	player.immortality_time -= deltatime;
 
-	for (auto i : bullets) { //столкновения снарядов с картой
+	for (auto &i : bullets) { //столкновения снарядов с картой
 		
 		i.update();
 
@@ -172,8 +172,8 @@ void Map :: update() {
 
 	}
 	
-	for ( auto i : bots) {  //столкновения снарядов с ботами
-		for ( auto j : bullets) { //добавить анимацию уничтожения
+	for ( auto &i : bots) {  //столкновения снарядов с ботами
+		for ( auto &j : bullets) { //добавить анимацию уничтожения
 			if (abs(j.getX() - i.getX()) <= 1.3*panzer_width &&
 				abs(j.getY() - i.getY()) <= 1.3*panzer_width && i.immortality_time<=0)
 			{
@@ -182,7 +182,7 @@ void Map :: update() {
 			}
 		}
 	}
-	for (auto j : bullets) {
+	for (auto &j : bullets) {
 
 		if (abs(j.getX() - player.getX()) <= 1.3 * panzer_width &&
 			abs(j.getY() - player.getY()) <= 1.3 * panzer_width &&  player.immortality_time<=0)
@@ -192,8 +192,8 @@ void Map :: update() {
 			
 		}
 	}
-	for (auto i : bullets) {
-		for (auto j : bullets) {
+	for (auto &i : bullets) {
+		for (auto &j : bullets) {
 			if (i.dist(j) <= max_bullet_dist && i.IsAlive==1 && j.IsAlive==1 && &i!=&j) {
 				//можно добавить анимацию взрыва
 				i.del();
@@ -203,10 +203,13 @@ void Map :: update() {
 		}
 	}
 	//std::vector <Bullet> bullets_upd;
-	for (auto i: bullets) {
-		if (i.IsAlive == 0) {
-			engine->mm.delTexture(i.texture);
-			bullets.erase(i);
+	for (auto it = bullets.begin(); it != bullets.end();) {
+		if (it->IsAlive == 0) {
+			engine->mm.delTexture(it->texture);
+			it=bullets.erase(it);
+		}
+		else { 
+			it++; 
 		}
 	}
 	CountBullet = bullets.size();
@@ -216,11 +219,14 @@ void Map :: update() {
 		bullets[i] = bullets_upd[i];
 	}*/
 	//std::vector <PanzerBot> bots_upd;
-	for (auto i : bots) {
-		if (i.IsAlive == 0) {
+	for (auto it = bots.begin(); it != bots.end();) {
+		if (it->IsAlive == 0) {
 			//bots_upd.push_back(bots[i]);
-			engine->mm.delTexture(i.texture);
-			bots.erase(i);
+			engine->mm.delTexture(it->texture);
+			it=bots.erase(it);
+		}
+		else {
+			it++;
 		}
 	}
 	CountBot = bots.size();

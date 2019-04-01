@@ -20,6 +20,7 @@ PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	speed_boost = (level-1)/6.0+1;
 	health = 3;
 	stun_time = 0;
+	immortality_time = std_immortality_time;
 }
 void PanzerPlayer::gg() {
 	engine->sm.set_cur_scene("main menu");

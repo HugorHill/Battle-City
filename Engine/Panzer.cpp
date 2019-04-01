@@ -50,7 +50,9 @@ float  Panzer :: dist(Panzer* a, Panzer* b) {
 
 //сделать в апдейте проверку столкновений
 void Panzer::update() {
-	stun_time -= time;
+	if (stun_time > -1) {
+		stun_time -= time;
+	}
 	if (stun_time < 0) {
 		switch (direction) {
 		case 0:
