@@ -106,7 +106,7 @@ void Panzer::draw() {
 		angel = 180;
 		break;
 	}
-	engine->rm.drawSquare(texture, 2*panzer_width, pos, angel);
+	engine->rm.draw_square(texture, 2*panzer_width, pos, angel);
 }
 void Panzer::del() {
 	health--;

@@ -132,7 +132,7 @@ void ShadowMap::draw()
 	for (int i = 0; i < positions.size(); i++)
 	{
 		draw_fans(25, positions[i],glm::vec2(sinf(0),cosf(0)));
-		//engine->rm.drawSquare(quad_texture, 25, positions[i]);
+		//engine->rm.draw_square(quad_texture, 25, positions[i]);
 	}
 
 

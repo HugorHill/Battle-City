@@ -1,6 +1,7 @@
 
 #pragma once
 #define WINDOW_SIZE_UNITS 512.0
+#define WIN_SIZE_PIXELS 700
 #define map_width 512.0
 #define map_height 512.0
 #define _ptr(adr,type) ((type*)adr)

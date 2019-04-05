@@ -21,7 +21,7 @@ void Bonus::update() {
 
 void Bonus::draw() {
 	glm::vec2 pos = { coordX,coordY };
-	engine->rm.drawSquare(texture, 2 * bonus_width, pos, 0);
+	engine->rm.draw_square(texture, 2 * bonus_width, pos, 0);
 }
 
  

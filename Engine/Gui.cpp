@@ -15,12 +15,12 @@ void gui::Menu::init()
 
 void gui::Menu::draw()
 {
-	rm->drawText("BATTLE", glm::vec2(0, WINDOW_SIZE_UNITS / 4), true, glm::vec3(0), 1.5, bgTextTexture);
-	rm->drawText("CITY", glm::vec2(0, WINDOW_SIZE_UNITS / 8), true, glm::vec3(0), 1.5, bgTextTexture);
-	rm->drawText("1 PLAYER", glm::vec2(0), true, glm::vec3(1), 0.5);
-	rm->drawText("2 PLAYERS", glm::vec2(0,-WINDOW_SIZE_UNITS / 16), true,glm::vec3(1),0.5);
+	rm->draw_text("BATTLE", glm::vec2(0, WINDOW_SIZE_UNITS / 4), true, glm::vec3(0), 1.5, bgTextTexture);
+	rm->draw_text("CITY", glm::vec2(0, WINDOW_SIZE_UNITS / 8), true, glm::vec3(0), 1.5, bgTextTexture);
+	rm->draw_text("1 PLAYER", glm::vec2(0), true, glm::vec3(1), 0.5);
+	rm->draw_text("2 PLAYERS", glm::vec2(0,-WINDOW_SIZE_UNITS / 16), true,glm::vec3(1),0.5);
 	const float size_square_pointer = WINDOW_SIZE_UNITS / 28;
-	rm->drawSquare(pointerTexture, size_square_pointer, glm::vec2(-WINDOW_SIZE_UNITS / 4, size_square_pointer/2 - current_button*WINDOW_SIZE_UNITS/16));
+	rm->draw_square(pointerTexture, size_square_pointer, glm::vec2(-WINDOW_SIZE_UNITS / 4, size_square_pointer/2 - current_button*WINDOW_SIZE_UNITS/16));
 }
 
 static GLuint key_down_status = 0;
@@ -61,8 +61,8 @@ void gui::PassWindow::init()
 
 void gui::PassWindow::draw()
 {
-	rm->drawText("It has not realized yet!", glm::vec2(0), true, glm::vec3(1), 0.25);
-	rm->drawText("This window will close after " + std::to_string((int)(5-timer)) + " sec.", glm::vec2(0,-WINDOW_SIZE_UNITS / 16), true, glm::vec3(1),0.25);
+	rm->draw_text("It has not realized yet!", glm::vec2(0), true, glm::vec3(1), 0.25);
+	rm->draw_text("This window will close after " + std::to_string((int)(5-timer)) + " sec.", glm::vec2(0,-WINDOW_SIZE_UNITS / 16), true, glm::vec3(1),0.25);
 }
 
 static float time = 0;

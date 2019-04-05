@@ -69,7 +69,7 @@ void Map :: init() {
 void Map :: draw() {	
 	for (int i = 0; i < 32; i++) {
 		for (int j = 0; j < 32; j++) {
-				engine->rm.drawSquare(textures[map[i][j]], 16,
+				engine->rm.draw_square(textures[map[i][j]], 16,
 					{16*i-256+square_width,16*j-256+square_width}, 0);
 
 		}

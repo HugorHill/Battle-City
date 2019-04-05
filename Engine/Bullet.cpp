@@ -52,7 +52,7 @@ void Bullet :: draw() {
 		angel = 180;
 		break;
 	}
-	engine->rm.drawSquare(texture, 8, pos, angel);
+	engine->rm.draw_square(texture, 8, pos, angel);
 }
 float Bullet::dist(Bullet a) {
 	float dx = coordX - a.getX();
