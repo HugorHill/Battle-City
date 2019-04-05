@@ -16,6 +16,12 @@
     <Filter Include="Файлы ресурсов\shaders">
       <UniqueIdentifier>{c056fedb-ddae-4ded-b55b-33f0f3892814}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Файлы исходного кода\Render processes">
+      <UniqueIdentifier>{4b256ae0-f689-4da8-a41e-0d0722382aca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Заголовочные файлы\Render processes">
+      <UniqueIdentifier>{c586100a-a203-42de-b76b-d8d808efb42a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -63,6 +69,9 @@
     <ClCompile Include="Bonus.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="RP_DrawSquare.cpp">
+      <Filter>Файлы исходного кода\Render processes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -109,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="Bonus.h">
       <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="RP_DrawSquare.h">
+      <Filter>Заголовочные файлы\Render processes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

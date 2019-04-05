@@ -124,6 +124,7 @@ static bool debug = true;
 
 void ShadowMap::draw()
 {
+
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 	glClearColor(1, 1, 1, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

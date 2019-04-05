@@ -1,13 +1,16 @@
 #include "Engine.h"
+#include "RenderManager.h"
 #include <stdio.h>
 
 using namespace std;
 Engine* GameObject::engine = NULL;
+Engine* RenderProcessObject::engine = NULL;
 
 
 Engine::Engine()
 {
 	GameObject::engine = this;
+	RenderProcessObject::engine = this;
 };
 
 Engine::~Engine()

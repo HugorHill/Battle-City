@@ -5,6 +5,7 @@
 #include <string>
 #include <ft2build.h>
 #include <freetype\freetype.h>
+#include "RP_DrawSquare.h"
 
 namespace rendering
 {
@@ -203,26 +204,9 @@ void RenderManager::init(int w, int h, Engine* ptr)
 
 	rendering::text::init(engine);
 
-	//init structure square
-	square.VAO = engine->mm.getVAO();
-	square.pos = engine->mm.getVBO();
-	square.shader = Shader("static", engine);
 
-	glBindVertexArray(square.pos);
-	static const GLfloat pos[] =
-	{
-		-1,-1,0,
-		1,-1,0,
-		-1,1,0,
-		-1,1,0,
-		1,-1,0,
-		1,1,0
-	};
-	glBindBuffer(GL_ARRAY_BUFFER, square.pos);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(pos), pos, GL_STATIC_DRAW);
-	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-	glDisableVertexAttribArray(0);
+	renderProcess.insert(std::pair<std::string, RenderProcessObject*>("draw square", new RP_DrawSquare));
+	renderProcess["draw square"]->init();
 
 }
 
@@ -231,31 +215,12 @@ void RenderManager::updateScreen()
 	glfwSwapBuffers(engine->window);
 }
 
-static glm::vec2* hero_pos = NULL;
 //функция рисования квадратика: размеры и позиция указываются в юнитах, а угол в градусах
 void RenderManager::drawSquare(GLuint texture, GLuint size, glm::vec2 pos, float angelRotate)
 {
-	if(!hero_pos) hero_pos = _ptr(engine->vm.getVar("hero position"), glm::vec2);
-
-	square.shader.start();
-	glm::vec2 light_pos = *hero_pos;
-	light_pos /= WINDOW_SIZE_UNITS / 2.0;
-	square.shader.load_vec("light_pos", light_pos);
-	square.shader.load_i("count_lights", 0);
-	glm::mat4 transformation = glm::mat4(1);
-	pos /= WINDOW_SIZE_UNITS/2.0;
-	transformation = glm::translate(transformation, glm::vec3(pos, 0));
-	transformation = glm::rotate(transformation, glm::radians(angelRotate), glm::vec3(0, 0, 1));
-	transformation = glm::scale(transformation, glm::vec3((float)size / WINDOW_SIZE_UNITS));
-
-	square.shader.load_mat("transf", transformation); //тут загружаеся преобразование
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glBindVertexArray(square.VAO);
-	glEnableVertexAttribArray(0);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
-	glDisableVertexAttribArray(0);
-	square.shader.stop();
+	RP_DrawSquare* RP = (RP_DrawSquare*)renderProcess["draw square"];
+	RP->options = {texture, size, pos, angelRotate };
+	RP->run();
 }
 
 //поизиция указывается в юнитах

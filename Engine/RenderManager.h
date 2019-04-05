@@ -11,6 +11,19 @@
 #define WINDOW_SIZE_UNITS 512.0
 
 class Engine;
+
+class RenderProcessObject
+{
+	friend class Engine;
+public:
+	RenderProcessObject() {};
+	~RenderProcessObject() {};
+	virtual void init() = 0;
+	virtual void run() = 0;
+protected:
+	static Engine* engine;
+};
+
 class RenderManager
 {
 	friend class Engine;
@@ -23,10 +36,5 @@ class RenderManager
 		void init(int w, int h, Engine* ptr);
 		void updateScreen();
 		Engine* engine; // указатель на движок
-		struct
-		{
-			GLuint VAO;
-			GLuint pos;
-			Shader shader;
-		}square;
+		std::map<std::string, RenderProcessObject*> renderProcess;
 };
