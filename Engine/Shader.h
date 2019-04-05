@@ -7,11 +7,13 @@
 #include <glm\gtc\type_ptr.hpp>
 #include <map>
 
+class Engine;
 class Shader
 {
+	friend class Engine;
 	public:
 		Shader() {};
-		Shader(std::string file,void* p);
+		Shader(std::string file);
 		~Shader() {};
 		void start();
 		void stop();
@@ -24,5 +26,6 @@ class Shader
 		void load_mat(std::string, glm::mat4);
 	private:
 		GLuint shader_program;
+		static Engine* engine;
 };
 

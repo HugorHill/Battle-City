@@ -4,9 +4,9 @@
 #include "Engine.h"
 #include "Defines.h"
 
-Shader::Shader(std::string file,void* p)
+Shader::Shader(std::string file)
 {
-	shader_program = _ptr(p, Engine)->mm.loadShader(file);
+	shader_program = engine->mm.loadShader(file);
 }
 
 void Shader::start()

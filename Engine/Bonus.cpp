@@ -7,7 +7,7 @@ Bonus::Bonus(double x, double y, int t) {
 	coordY = y;
 	type = t;
 	lifetime = std_bonus_lifetime;
-	texture =  _ptr(engine,Engine)->mm.loadTexture("map/base.png");
+	texture = engine->mm.loadTexture("map/base.png");
 	time = 0;	
 }
 void Bonus::del(PanzerPlayer* player) {

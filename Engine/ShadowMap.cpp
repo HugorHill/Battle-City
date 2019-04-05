@@ -34,7 +34,7 @@ void ShadowMap::init()
 
 	square.VAO = engine->mm.getVAO();
 	square.pos = engine->mm.getVBO();
-	square.shader =  Shader("shaders/scene",engine);
+	square.shader =  Shader("shaders/scene");
 	glBindVertexArray(square.VAO);
 	glBindVertexArray(square.pos);
 	static const GLfloat pos[] =
@@ -55,7 +55,7 @@ void ShadowMap::init()
 
 	triangle.VAO = engine->mm.getVAO();
 	triangle.pos = engine->mm.getVBO();
-	triangle.shader = Shader("shaders/triangle", engine);
+	triangle.shader = Shader("shaders/triangle");
 	glBindVertexArray(triangle.VAO);
 	glBindVertexArray(triangle.pos);
 	glBindBuffer(GL_ARRAY_BUFFER, triangle.pos);

@@ -15,7 +15,7 @@ PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	cooldown = 0;
 	map = _map;
 	level = 1;
-	texture =  _ptr(engine,Engine)->mm.loadTexture(mainhero[level]);
+	texture =  engine->mm.loadTexture(mainhero[level]);
 	time_turn = std_time_turn;	
 	speed_boost = (level-1)/6.0+1;
 	health = 3;
@@ -28,7 +28,7 @@ void PanzerPlayer::gg() {
 void PanzerPlayer::logic() {
 	engine->vm.setVar("hero position", &glm::vec2(coordX, coordY));
 	velocity = 0;
-	if (glfwGetKey(_ptr(engine,Engine)->getWindow(),GLFW_KEY_W) == GLFW_PRESS) {
+	if (glfwGetKey(engine->getWindow(),GLFW_KEY_W) == GLFW_PRESS) {
 		direction = 0;
 		velocity = std_vel;
 	}

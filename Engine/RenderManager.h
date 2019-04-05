@@ -7,8 +7,7 @@
 #include <string>
 #include <glm\glm.hpp>
 #include "Shader.h"
-
-#define WINDOW_SIZE_UNITS 512.0
+#include "Defines.h"
 
 class Engine;
 

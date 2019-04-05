@@ -7,7 +7,7 @@ void RP_DrawSquare::init()
 	//init square
 	square.VAO = engine->mm.getVAO();
 	square.pos = engine->mm.getVBO();
-	square.shader = Shader("static", engine);
+	square.shader = Shader("static");
 
 	glBindVertexArray(square.pos);
 	static const GLfloat pos[] =

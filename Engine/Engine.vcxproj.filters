@@ -72,6 +72,9 @@
     <ClCompile Include="RP_DrawSquare.cpp">
       <Filter>Файлы исходного кода\Render processes</Filter>
     </ClCompile>
+    <ClCompile Include="RP_DrawText.cpp">
+      <Filter>Файлы исходного кода\Render processes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -120,6 +123,9 @@
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
     <ClInclude Include="RP_DrawSquare.h">
+      <Filter>Заголовочные файлы\Render processes</Filter>
+    </ClInclude>
+    <ClInclude Include="RP_DrawText.h">
       <Filter>Заголовочные файлы\Render processes</Filter>
     </ClInclude>
   </ItemGroup>

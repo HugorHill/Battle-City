@@ -4,12 +4,13 @@
 
 using namespace std;
 Engine* GameObject::engine = NULL;
+Engine* Shader::engine = NULL;
 Engine* RenderProcessObject::engine = NULL;
-
 
 Engine::Engine()
 {
 	GameObject::engine = this;
+	Shader::engine = this;
 	RenderProcessObject::engine = this;
 };
 
