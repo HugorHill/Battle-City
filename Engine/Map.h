@@ -8,6 +8,7 @@
 #include <set>
 
 class Map : public GameObject  {
+	friend class RP_DrawShadows; // эту хрень я уберу как только будет переписана карта int map на вектора
 protected:
 	std:: vector <PanzerBot> bots;
 	std::vector <Bullet> bullets;

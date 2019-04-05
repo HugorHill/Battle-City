@@ -5,6 +5,7 @@
 #include <string>
 #include "RP_DrawSquare.h"
 #include "RP_DrawText.h"
+#include "RP_DrawShadows.h"
 
 void Layer::init()
 {
@@ -75,12 +76,21 @@ void RenderManager::init(int w, int h, Engine* ptr)
 	renderProcess["draw square"]->init();
 	renderProcess.insert(std::pair<std::string, RenderProcessObject*>("draw text", new RP_DrawText));
 	renderProcess["draw text"]->init();
+	renderProcess.insert(std::pair<std::string, RenderProcessObject*>("draw shadow", new RP_DrawShadows));
+	renderProcess["draw shadow"]->init();
 
+
+	layers.insert(std::pair<std::string, Layer*>("main", new Layer));
+	layers["main"]->init();
+	layers["main"]->Use();
 }
 
 void RenderManager::updateScreen()
 {
+	layers["main"]->Reset();
+	draw_square(layers["main"]->texturebuffer, WINDOW_SIZE_UNITS, glm::vec2(0));
 	glfwSwapBuffers(engine->window);
+	layers["main"]->Use();
 }
 
 //функция рисования квадратика: размеры и позиция указываются в юнитах, а угол в градусах
@@ -96,5 +106,13 @@ void RenderManager::draw_text(std::string text, glm::vec2 pos, bool atCenter, gl
 {
 	RP_DrawText* RP = (RP_DrawText*)renderProcess["draw text"];
 	RP->options = { text, pos, atCenter, color, scale, bgTexture };
+	RP->run();
+}
+
+//рисование карты с учеом теней
+void RenderManager::draw_shadows(glm::vec2 light_position,Map* map)
+{
+	RP_DrawShadows* RP = (RP_DrawShadows*)renderProcess["draw shadow"];
+	RP->options = { light_position,map, layers["main"] };
 	RP->run();
 }

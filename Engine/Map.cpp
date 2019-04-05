@@ -84,6 +84,7 @@ void Map :: draw() {
 		i.draw();
 	}
 	player.draw();
+	//engine->rm.draw_shadows(glm::vec2(player.getX(), player.getY()), this);
 }
 
 void Map::logic() {

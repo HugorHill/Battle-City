@@ -33,6 +33,7 @@ struct Layer
 	inline void Reset();
 };
 
+class Map;
 class RenderManager
 {
 	friend class Engine;
@@ -41,6 +42,7 @@ class RenderManager
 		~RenderManager() {};
 		void draw_square(GLuint texture,GLuint size,glm::vec2 pos,float angelRotate = 0);
 		void draw_text(std::string text, glm::vec2 pos, bool atCenter = false, glm::vec3 color = glm::vec3(0), float scale = 1,GLuint bgTexture = 0);
+		void draw_shadows(glm::vec2 light_position, Map* map);
 	private:
 		void init(int w, int h, Engine* ptr);
 		void updateScreen();
