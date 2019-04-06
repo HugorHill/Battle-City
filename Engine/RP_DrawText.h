@@ -17,7 +17,7 @@ class RP_DrawText : public RenderProcessObject
 		RP_DrawText() {};
 		~RP_DrawText() {};
 		void init();
-		void run();
+		void render(Layer* layer);
 
 	private:
 		struct{

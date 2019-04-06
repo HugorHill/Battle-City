@@ -30,8 +30,6 @@ void Engine::run()
 {
 	do
 	{
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		sm.get_current_scene()->calculate();
 		rm.updateScreen();
 		glfwPollEvents();

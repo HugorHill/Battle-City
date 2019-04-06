@@ -26,12 +26,12 @@ void Layer::init()
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 };
 
-inline void Layer::Use()
+void Layer::Use()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
 };
 
-inline void Layer::Reset()
+void Layer::Reset()
 {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 };
@@ -80,6 +80,8 @@ void RenderManager::init(int w, int h, Engine* ptr)
 	renderProcess["draw shadow"]->init();
 
 
+	layers.insert(std::pair<std::string, Layer*>("screen", new Layer));
+	layers["screen"]->framebuffer = 0;
 	layers.insert(std::pair<std::string, Layer*>("main", new Layer));
 	layers["main"]->init();
 	layers["main"]->Use();
@@ -87,18 +89,29 @@ void RenderManager::init(int w, int h, Engine* ptr)
 
 void RenderManager::updateScreen()
 {
-	layers["main"]->Reset();
 	draw_square(layers["main"]->texturebuffer, WINDOW_SIZE_UNITS, glm::vec2(0));
+	renderProcess["draw square"]->render(layers["screen"]);
 	glfwSwapBuffers(engine->window);
-	layers["main"]->Use();
+	for (auto layer : layers)
+	{
+		layer.second->Use();
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		layer.second->Reset();
+	}
 }
 
 //функци€ рисовани€ квадратика: размеры и позици€ указываютс€ в юнитах, а угол в градусах
 void RenderManager::draw_square(GLuint texture, GLuint size, glm::vec2 pos, float angelRotate)
 {
 	RP_DrawSquare* RP = (RP_DrawSquare*)renderProcess["draw square"];
-	RP->options = {texture, size, pos, angelRotate };
-	RP->run();
+	RP->options.push_back({texture, size, pos, angelRotate });
+}
+
+void RenderManager::render_squares()
+{
+	RP_DrawSquare* RP = (RP_DrawSquare*)renderProcess["draw square"];
+	RP->render(layers["main"]);
 }
 
 //поизици€ указываетс€ в юнитах
@@ -106,13 +119,18 @@ void RenderManager::draw_text(std::string text, glm::vec2 pos, bool atCenter, gl
 {
 	RP_DrawText* RP = (RP_DrawText*)renderProcess["draw text"];
 	RP->options = { text, pos, atCenter, color, scale, bgTexture };
-	RP->run();
+	RP->render(layers["main"]);
 }
 
-//рисование карты с учеом теней
-void RenderManager::draw_shadows(glm::vec2 light_position,Map* map)
+//запихиваем очередную преграду в массив
+void RenderManager::draw_shadow(glm::vec2 light_position,glm::vec2 wall)
 {
 	RP_DrawShadows* RP = (RP_DrawShadows*)renderProcess["draw shadow"];
-	RP->options = { light_position,map, layers["main"] };
-	RP->run();
+	RP->options.push_back({light_position,wall});
+}
+
+void RenderManager::render_shadows()
+{
+	RP_DrawShadows* RP = (RP_DrawShadows*)renderProcess["draw shadow"];
+	RP->render(layers["main"]);
 }

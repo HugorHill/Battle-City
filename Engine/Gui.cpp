@@ -21,6 +21,7 @@ void gui::Menu::draw()
 	rm->draw_text("2 PLAYERS", glm::vec2(0,-WINDOW_SIZE_UNITS / 16), true,glm::vec3(1),0.5);
 	const float size_square_pointer = WINDOW_SIZE_UNITS / 28;
 	rm->draw_square(pointerTexture, size_square_pointer, glm::vec2(-WINDOW_SIZE_UNITS / 4, size_square_pointer/2 - current_button*WINDOW_SIZE_UNITS/16));
+	engine->rm.render_squares();
 }
 
 static GLuint key_down_status = 0;

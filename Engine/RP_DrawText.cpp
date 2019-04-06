@@ -70,8 +70,9 @@ void RP_DrawText::init()
 	FT_Done_FreeType(ft);
 };
 
-void RP_DrawText::run()
+void RP_DrawText::render(Layer* layer)
 {
+	layer->Use();
 	glyph.glyph_shader.start();
 	glyph.glyph_shader.load_i("text", 0);
 	glyph.glyph_shader.load_i("bgTexture", 1);
@@ -127,4 +128,5 @@ void RP_DrawText::run()
 	}
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
+	layer->Reset();
 };

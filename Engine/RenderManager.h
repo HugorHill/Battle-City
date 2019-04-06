@@ -6,10 +6,12 @@
 #include <map>
 #include <string>
 #include <glm\glm.hpp>
+#include <vector>
 #include "Shader.h"
 #include "Defines.h"
 
 class Engine;
+struct Layer;
 
 class RenderProcessObject
 {
@@ -18,7 +20,7 @@ public:
 	RenderProcessObject() {};
 	~RenderProcessObject() {};
 	virtual void init() = 0;
-	virtual void run() = 0;
+	virtual void render(Layer* layer) = 0;
 protected:
 	static Engine* engine;
 };
@@ -29,11 +31,10 @@ struct Layer
 	GLuint texturebuffer;
 	GLuint renderbuffer;
 	void init();
-	inline void Use();
-	inline void Reset();
+	void Use();
+	void Reset();
 };
 
-class Map;
 class RenderManager
 {
 	friend class Engine;
@@ -41,8 +42,10 @@ class RenderManager
 		RenderManager() : engine(NULL) {};
 		~RenderManager() {};
 		void draw_square(GLuint texture,GLuint size,glm::vec2 pos,float angelRotate = 0);
+		void render_squares();
 		void draw_text(std::string text, glm::vec2 pos, bool atCenter = false, glm::vec3 color = glm::vec3(0), float scale = 1,GLuint bgTexture = 0);
-		void draw_shadows(glm::vec2 light_position, Map* map);
+		void draw_shadow(glm::vec2 light_position, glm::vec2 wall);
+		void render_shadows();
 	private:
 		void init(int w, int h, Engine* ptr);
 		void updateScreen();

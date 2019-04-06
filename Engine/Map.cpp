@@ -66,12 +66,14 @@ void Map :: init() {
 	
 }
 
-void Map :: draw() {	
+void Map :: draw() {
 	for (int i = 0; i < 32; i++) {
-		for (int j = 0; j < 32; j++) {
-				engine->rm.draw_square(textures[map[i][j]], 16,
-					{16*i-256+square_width,16*j-256+square_width}, 0);
-
+		for (int j = 0; j < 32; j++){
+			glm::vec2 pos = { 16 * i - 256 + square_width,16 * j - 256 + square_width };
+			glm::vec2 player_pos = { player.getX(),player.getY() };
+			engine->rm.draw_square(textures[map[i][j]], square_width*2 , pos);
+			if (map[i][j] == 2 || map[i][j] == 3)
+				engine->rm.draw_shadow(player_pos, pos);
 		}
 	}
 	for (auto &i : bullets) {
@@ -84,7 +86,16 @@ void Map :: draw() {
 		i.draw();
 	}
 	player.draw();
-	//engine->rm.draw_shadows(glm::vec2(player.getX(), player.getY()), this);
+
+	/*
+		теперь рисование устроено чуть иначе:
+		при вызове функции engine->rm.draw_square(..) RenderManager как бы запомнинает параметры вызова этой функции
+		а для рисования уже надо будет вызвать engine->rm.render_squares();
+		по сути ты сначала запихиваешь с массив все, что хочешь нарисовать, а потом говоришь: "нарисуй мне все разом"
+		эта штука была реализована для ускорения процесса
+	*/
+	engine->rm.render_squares();
+	engine->rm.render_shadows();
 }
 
 void Map::logic() {
