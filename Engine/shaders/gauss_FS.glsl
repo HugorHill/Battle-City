@@ -1,40 +1,39 @@
 #version 330 core
-in vec2 TexCoords;
+uniform sampler2D picture;
 
-uniform float radius;
-uniform vec2 win_size;
-uniform vec2 dir;
-uniform sampler2D screenTexture;
+in vec2 texture_coord;
 out vec4 FragColor;
 
-vec4 gaussian_blur(float blur)
-{
-	vec4 sum = vec4(0.0);
-	vec2 tc = TexCoords;
-	//float blur = radius/resolution; 
-	float hstep = dir.x/win_size.x;
-	float vstep = dir.y/win_size.y;
-    
-    
-	sum += texture2D(screenTexture, vec2(tc.x - 4.0*blur*hstep, tc.y - 4.0*blur*vstep)) * 0.0162162162;
-	sum += texture2D(screenTexture, vec2(tc.x - 3.0*blur*hstep, tc.y - 3.0*blur*vstep)) * 0.0540540541;
-	sum += texture2D(screenTexture, vec2(tc.x - 2.0*blur*hstep, tc.y - 2.0*blur*vstep)) * 0.1216216216;
-	sum += texture2D(screenTexture, vec2(tc.x - 1.0*blur*hstep, tc.y - 1.0*blur*vstep)) * 0.1945945946;
-	
-	sum += texture2D(screenTexture, vec2(tc.x, tc.y)) * 0.2270270270;
-	
-	sum += texture2D(screenTexture, vec2(tc.x + 1.0*blur*hstep, tc.y + 1.0*blur*vstep)) * 0.1945945946;
-	sum += texture2D(screenTexture, vec2(tc.x + 2.0*blur*hstep, tc.y + 2.0*blur*vstep)) * 0.1216216216;
-	sum += texture2D(screenTexture, vec2(tc.x + 3.0*blur*hstep, tc.y + 3.0*blur*vstep)) * 0.0540540541;
-	sum += texture2D(screenTexture, vec2(tc.x + 4.0*blur*hstep, tc.y + 4.0*blur*vstep)) * 0.0162162162;
-
-	return sum;
-}
-
+const float offset = 1.0 / 400.0;  
 
 void main()
 {
-	vec4 vColor = texture(screenTexture, TexCoords.st);
+    vec2 offsets[9] = vec2[](
+        vec2(-offset,  offset),
+        vec2( 0.0f,    offset),
+        vec2( offset,  offset),
+        vec2(-offset,  0.0f),
+        vec2( 0.0f,    0.0f),
+        vec2( offset,  0.0f),
+        vec2(-offset, -offset),
+        vec2( 0.0f,   -offset),
+        vec2( offset, -offset)  
+    );
+
+    float kernel[9] = float[](
+    1.0 / 16, 2.0 / 16, 1.0 / 16,
+    2.0 / 16, 4.0 / 16, 2.0 / 16,
+    1.0 / 16, 2.0 / 16, 1.0 / 16  
+	);
     
-    FragColor = vColor*gaussian_blur(radius);
+    vec3 sampleTex[9];
+    for(int i = 0; i < 9; i++)
+    {
+        sampleTex[i] = vec3(texture(picture, texture_coord.st + offsets[i]));
+    }
+    vec3 col = vec3(0.0);
+    for(int i = 0; i < 9; i++)
+        col += sampleTex[i] * kernel[i];
+    
+    FragColor = vec4(col, 1.0);
 }  

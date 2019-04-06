@@ -95,7 +95,7 @@ void Map :: draw() {
 		эта штука была реализована для ускорения процесса
 	*/
 	engine->rm.render_squares();
-	engine->rm.render_shadows();
+	engine->rm.render_shadows(); //закомментируй эту строчку и выключишь тени
 }
 
 void Map::logic() {
