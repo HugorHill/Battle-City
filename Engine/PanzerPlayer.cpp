@@ -72,15 +72,11 @@ void PanzerPlayer::upgrade(int type) {
 		break;
 	}
 }
-/*void PanzerPlayer::draw() {
-	Panzer::draw();
-	std::string hp = std::to_string(health);
-	
-	_ptr(engine, Engine)->rm.draw_text("integrate", glm::vec2(level_coord_x, level_coord_y));
-}*/
+
 void PanzerPlayer::del() {
 	Panzer::del();
 	if (level > 1) {
 		level--;
+		speed_boost = sqrt((double)level);
 	}
 }

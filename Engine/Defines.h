@@ -24,5 +24,11 @@
 #define frag3 20
 #define frag4 30
 #define bonus_width 12
-#define level_coord_x 200
-#define level_coord_y 200
+#define text_coord_x 195
+#define text_coord_y1 200
+#define text_coord_y2 160
+#define text_coord_y3 120
+#define text_coord_y4 100
+#define text_coord_y5 60
+#define message_x 0
+#define message_y 0

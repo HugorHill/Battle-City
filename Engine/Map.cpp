@@ -3,6 +3,8 @@
 #include <fstream>
 #include <string>
 #include <iostream>
+std::string message[7] = { " a", "LEVEL UP", "EXTRA HP", "BOOOOOOM","FREEZING",
+"BASE PROTECTION", "IMMORTALITY" };
 void Map :: AddBot(PanzerBot p) {
 	bots.push_back(p);
 	CountBot++;
@@ -24,7 +26,7 @@ void Map::stun_them_all() {
 	}
 }
 void Map::AddBonus(int type) {
-	Bonus temp(rand() % (int)map_width-map_width/2, rand() % (int)map_height-map_height/2, type);
+	Bonus temp(rand() % 450-map_width/2 , rand() % (int)map_height-map_height/2, type);
 	bonuses.push_back(temp);
 }
 void Map :: init() {
@@ -88,12 +90,29 @@ void Map :: draw() {
 	}
 	player.draw();
 	engine->rm.render_squares();
-	//engine->rm.render_shadows(); //закомментируй эту строчку и выключишь тени
+	for (auto &i : bonuses) {
+		if (i.getlifetime()<0 && i.flag==true) {
+			engine->rm.draw_text(message[i.get_type()], glm::vec2(message_x, message_y),
+				true, glm::vec3(1, 1, 0), 0.3);
+		}
+	}
 	std::string hp = "HP ";
 	hp += std::to_string(player.gethealth());
 	
-	_ptr(engine, Engine)->rm.draw_text(hp, glm::vec2(level_coord_x, level_coord_y),false,
-		glm::vec3(0), 0.4, textures[4]);
+	_ptr(engine, Engine)->rm.draw_text(hp, glm::vec2(text_coord_x, text_coord_y1),false,
+		glm::vec3(1,1,0), 0.4);
+	std::string level = "LVL ";
+	level += std::to_string(player.getlevel());
+	_ptr(engine, Engine)->rm.draw_text(level, glm::vec2(text_coord_x, text_coord_y2), false,
+		glm::vec3(1,1,0), 0.4);
+
+	
+	_ptr(engine, Engine)->rm.draw_text("FRAGS", glm::vec2(text_coord_x, text_coord_y3), false,
+		glm::vec3(1, 1, 0), 0.3);
+	std::string kills;
+	kills = std::to_string(frags);
+	_ptr(engine, Engine)->rm.draw_text(kills, glm::vec2(text_coord_x, text_coord_y4), false,
+		glm::vec3(1, 1, 0), 0.3);
 
 	/*
 		теперь рисование устроено чуть иначе:
@@ -102,8 +121,8 @@ void Map :: draw() {
 		по сути ты сначала запихиваешь с массив все, что хочешь нарисовать, а потом говоришь: "нарисуй мне все разом"
 		эта штука была реализована для ускорения процесса
 	*/
-
 	
+	//engine->rm.render_shadows(); //закомментируй эту строчку и выключишь тени
 }
 
 void Map::logic() {
@@ -200,7 +219,7 @@ void Map :: update() {
 	}
 	for (auto it = bonuses.begin(); it != bonuses.end(); ) {
 		it->update();
-		if (it->getlifetime() <= 0) {
+		if (it->getlifetime() <= -1.5) {
 			engine->mm.delTexture(it->texture);
 			it=bonuses.erase(it);
 		}
@@ -217,7 +236,6 @@ void Map :: update() {
 				i.del();
 				j.del();
 				frags++;
-				std::cout << "frags " << frags << "\n";
 			}
 		}
 	}
@@ -246,7 +264,8 @@ void Map :: update() {
 	}
 	for (auto &i : bonuses) {
 		if (abs(i.getX() - player.getX()) <= bonus_width + panzer_width &&
-			abs(i.getY() - player.getY()) <= bonus_width + panzer_width) {
+			abs(i.getY() - player.getY()) <= bonus_width + panzer_width 
+			&& i.getlifetime()>0) {
 			i.del(&player);
 		}
 	}

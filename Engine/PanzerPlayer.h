@@ -12,7 +12,7 @@ public:
 	PanzerPlayer() {};
 	PanzerPlayer(float x,float y, int dir, float vel,void* _map);
 	void logic();
-	//void draw();
+	int getlevel() { return level; }
 	void gg() ;
 	void upgrade(int type) ;
 };

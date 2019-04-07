@@ -13,6 +13,7 @@ private:
 	
 	
 public:
+	bool flag = false; // флаг, что этот бонус вз€л игрок
 	GLuint texture;
 	Bonus() {};
 	Bonus(double x, double y, int type);
@@ -26,6 +27,7 @@ public:
 	double getX() { return coordX; }
 	double getY() { return coordY; }
 	double getlifetime(){ return lifetime; }
+	void print();
 };
 /* 1 апгрейд (звезда) 2 добавл€ет жизнь (танк) 3 взрыв всех врагов (граната)
  4 останавливает врагов (часы) 5 защита штаба (лопата) 6 каска (неу€звимый)*/
