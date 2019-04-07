@@ -24,3 +24,5 @@
 #define frag3 20
 #define frag4 30
 #define bonus_width 12
+#define level_coord_x 200
+#define level_coord_y 200

@@ -7,7 +7,7 @@ Bonus::Bonus(double x, double y, int t) {
 	coordY = y;
 	type = t;
 	lifetime = std_bonus_lifetime;
-	texture = engine->mm.loadTexture("map/base.png");
+	texture = engine->mm.loadTexture("map/base.jpg");
 	time = 0;	
 }
 void Bonus::del(PanzerPlayer* player) {
@@ -17,11 +17,14 @@ void Bonus::del(PanzerPlayer* player) {
 
 void Bonus::update() {
 	lifetime -= time;
+	
 }
 
 void Bonus::draw() {
-	glm::vec2 pos = { coordX,coordY };
-	engine->rm.draw_square(texture, 2 * bonus_width, pos, 0);
+	if (lifetime > 0) {
+		glm::vec2 pos = { coordX,coordY };
+		engine->rm.draw_square(texture, 2 * bonus_width, pos, 0);
+	}
 }
 
  

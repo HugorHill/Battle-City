@@ -53,7 +53,7 @@ void PanzerPlayer::upgrade(int type) {
 	switch (type) {
 	case 1: if (level < 4) {
 		level++;
-		speed_boost = sqrt((float)level);
+		speed_boost = sqrt((double)level);
 	}
 			break;
 	case 2: health++;
@@ -70,5 +70,17 @@ void PanzerPlayer::upgrade(int type) {
 	case 6:
 		immortality_time = std_immortality_time_bonus;
 		break;
+	}
+}
+/*void PanzerPlayer::draw() {
+	Panzer::draw();
+	std::string hp = std::to_string(health);
+	
+	_ptr(engine, Engine)->rm.draw_text("integrate", glm::vec2(level_coord_x, level_coord_y));
+}*/
+void PanzerPlayer::del() {
+	Panzer::del();
+	if (level > 1) {
+		level--;
 	}
 }

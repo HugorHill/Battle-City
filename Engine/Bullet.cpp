@@ -33,6 +33,7 @@ void Bullet :: update() {
 }
 void Bullet :: del(){
 	IsAlive = 0;
+	engine->mm.delTexture(texture);
 }
 void Bullet :: logic() {
 

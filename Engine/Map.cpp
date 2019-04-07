@@ -24,7 +24,7 @@ void Map::stun_them_all() {
 	}
 }
 void Map::AddBonus(int type) {
-	Bonus temp(rand() % (int)map_width, rand() % (int)map_height, type);
+	Bonus temp(rand() % (int)map_width-map_width/2, rand() % (int)map_height-map_height/2, type);
 	bonuses.push_back(temp);
 }
 void Map :: init() {
@@ -43,6 +43,7 @@ void Map :: init() {
 	player = temp;
 	CountBot = 0;
 	CountBullet = 0;
+	frags = 0;
 	
 	std::ifstream in;
 	in.open("map/Map1.txt");
@@ -86,6 +87,13 @@ void Map :: draw() {
 		i.draw();
 	}
 	player.draw();
+	engine->rm.render_squares();
+	//engine->rm.render_shadows(); //закомментируй эту строчку и выключишь тени
+	std::string hp = "HP ";
+	hp += std::to_string(player.gethealth());
+	
+	_ptr(engine, Engine)->rm.draw_text(hp, glm::vec2(level_coord_x, level_coord_y),false,
+		glm::vec3(0), 0.4, textures[4]);
 
 	/*
 		теперь рисование устроено чуть иначе:
@@ -94,8 +102,8 @@ void Map :: draw() {
 		по сути ты сначала запихиваешь с массив все, что хочешь нарисовать, а потом говоришь: "нарисуй мне все разом"
 		эта штука была реализована для ускорения процесса
 	*/
-	engine->rm.render_squares();
-	engine->rm.render_shadows(); //закомментируй эту строчку и выключишь тени
+
+	
 }
 
 void Map::logic() {
@@ -190,6 +198,16 @@ void Map :: update() {
 		destr(x0, y0-4, &i);
 
 	}
+	for (auto it = bonuses.begin(); it != bonuses.end(); ) {
+		it->update();
+		if (it->getlifetime() <= 0) {
+			engine->mm.delTexture(it->texture);
+			it=bonuses.erase(it);
+		}
+		else {
+			it++;
+		}
+	}
 	
 	for ( auto &i : bots) {  //столкновения снарядов с ботами
 		for ( auto &j : bullets) { //добавить анимацию уничтожения
@@ -199,6 +217,7 @@ void Map :: update() {
 				i.del();
 				j.del();
 				frags++;
+				std::cout << "frags " << frags << "\n";
 			}
 		}
 	}
@@ -226,7 +245,7 @@ void Map :: update() {
 		}
 	}
 	for (auto &i : bonuses) {
-		if (abs(i.getX() - player.getX()) <= bonus_width + panzer_width ||
+		if (abs(i.getX() - player.getX()) <= bonus_width + panzer_width &&
 			abs(i.getY() - player.getY()) <= bonus_width + panzer_width) {
 			i.del(&player);
 		}
@@ -260,9 +279,10 @@ void Map :: update() {
 		spawn_timer = std_spawn_cd;
 	}
 	if (frags == frag1 || frags == frag2 || frags == frag3 || frags == frag4) {
-	//if (bonuses.size()<1) {
-		r = rand() % 6 + 1;
-		AddBonus(r);
+			frags++;
+			r = rand() % 6 + 1;
+			AddBonus(r);
+		
 	}
-
+	
 }

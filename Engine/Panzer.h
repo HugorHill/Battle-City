@@ -18,7 +18,7 @@ class Panzer : public GameObject {
 	public:
 		float stun_time; // время в стане
 		GLuint texture;
-		~Panzer() {};
+		//~Panzer() { _ptr(engine,Engine)->mm.delTexture(texture); };
 		float time_turn;
 		int getDir();
 		float getVel();
@@ -39,5 +39,5 @@ class Panzer : public GameObject {
 		void CancelMove();
 		void set_cooldown(float cd) { cooldown = cd;}
 		static float dist(Panzer* a,Panzer* b);
-	
+		int gethealth() { return health; }
 };
