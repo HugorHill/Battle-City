@@ -7,6 +7,11 @@
 
 void* Panzer::map = NULL;
 double Panzer::time = 0;
+Panzer::~Panzer() {
+	for (auto it = texture.begin(); it != texture.end();it++ ) {
+		_ptr(engine, Engine)->mm.delTexture(*it);
+	}
+}
 int Panzer::getDir() {
 	return direction;
 }
@@ -106,12 +111,14 @@ void Panzer::draw() {
 		angel = 180;
 		break;
 	}
-	engine->rm.draw_square(texture, 2*panzer_width, pos, angel);
+	engine->rm.draw_square(texture[num_texture], 2*panzer_width, pos, angel);
 }
 void Panzer::del() {
 	health--;
 	if (health <= 0) {
 		IsAlive = 0;
-		engine->mm.delTexture(texture);
+		for (int i = 0; i < 8; i++) {
+			engine->mm.delTexture(texture[i]);
+		}
 	}
 }

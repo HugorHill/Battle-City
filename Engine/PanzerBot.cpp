@@ -1,5 +1,10 @@
 #pragma once
 #include "PanzerBot.h"
+std::string name_b[8] = {
+	"Panzer/T0-0.png","Panzer/T0-1.png","Panzer/T0-2.png","Panzer/T0-3.png",
+	"Panzer/T0-4.png","Panzer/T0-5.png","Panzer/T0-6.png","Panzer/T0-7.png"
+};
+
 PanzerBot::PanzerBot(float x, float y, int dir, float vel, void* _map,int type) {
 	coordX = x;
 	coordY = y;
@@ -13,15 +18,23 @@ PanzerBot::PanzerBot(float x, float y, int dir, float vel, void* _map,int type) 
 	immortality_time = std_immortality_time;
 	stun_time = -1;
 	health = 1;
+	texture.reserve(8);
+	texture.resize(8);
 	switch (type) {
 	case 1:
-		texture = engine->mm.loadTexture("map/panzer1.png");
+		for (int i = 0; i < 8; i++) {
+			texture[i] = engine->mm.loadTexture(name_b[i]);
+		}
 		break;
 	case 2:
-		texture = engine->mm.loadTexture("map/panzer2.png");
+		for (int i = 0; i < 8; i++) {
+			texture[i] = engine->mm.loadTexture(name_b[i]);
+		}
 		break;
 	case 3:
-		texture = engine->mm.loadTexture("map/panzer3.png");
+		for (int i = 0; i < 8; i++) {
+			texture[i] = engine->mm.loadTexture(name_b[i]);
+		}
 		break;
 	}
 }
@@ -37,4 +50,5 @@ void PanzerBot::logic() {
 	if (cooldown <= 0 && r < 5) {
 		Shoot();
 	} 
+	++num_texture % 8;
 }

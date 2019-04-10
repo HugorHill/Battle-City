@@ -16,8 +16,9 @@ class Panzer : public GameObject {
 
 	
 	public:
+		int num_texture;//номер текстуры 0-31 у плеера, 0-7 у бота
 		float stun_time; // время в стане
-		GLuint texture;
+		std::vector <GLuint> texture;
 		//~Panzer() { _ptr(engine,Engine)->mm.delTexture(texture); };
 		float time_turn;
 		int getDir();
@@ -26,6 +27,7 @@ class Panzer : public GameObject {
 		static void* map; 	// указатель на карту, используемую в игре
 		static double time; // время между кадрами
 		Panzer() { init(); }; //у танка игрока и бота отличаются только функции логики
+		~Panzer();
 		float getX() { return coordX; }
 		float getY() { return coordY; }
 		void init() {  }

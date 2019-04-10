@@ -19,10 +19,6 @@
 #define bonus_width 12
 #define std_immortality_time_bonus 10.0
 #define std_stun_time 5.0
-#define frag1 3
-#define frag2 10
-#define frag3 20
-#define frag4 30
 #define bonus_width 12
 #define text_coord_x 195
 #define text_coord_y1 200

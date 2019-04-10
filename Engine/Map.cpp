@@ -282,8 +282,7 @@ void Map :: update() {
 	
 	for (auto it = bots.begin(); it != bots.end();) {
 		if (it->IsAlive == 0) {
-			
-			engine->mm.delTexture(it->texture);
+			//engine->mm.delTexture(it->texture);
 			it=bots.erase(it);
 		}
 		else {
@@ -297,7 +296,7 @@ void Map :: update() {
 		AddBot(p);
 		spawn_timer = std_spawn_cd;
 	}
-	if (frags == frag1 || frags == frag2 || frags == frag3 || frags == frag4) {
+	if (frags%10==0) {
 			frags++;
 			r = rand() % 6 + 1;
 			AddBonus(r);
