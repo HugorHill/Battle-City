@@ -10,12 +10,12 @@ protected:
 	int coordX;
 	int coordY;
 	float speed_boost;
-	
+
 public:
-	GLuint texture;
+	void* map;
 	static double time;
 	Bullet() {};	
-	Bullet(int x, int y, int dir,double boost);
+	Bullet(int x, int y, int dir,double boost,void* map_);
 	void del();
 	int getX() { return coordX; }
 	int getY() { return coordY; }

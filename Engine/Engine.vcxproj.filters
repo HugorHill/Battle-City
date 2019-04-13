@@ -78,6 +78,9 @@
     <ClCompile Include="TestGameObject.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>Файлы исходного кода</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine.h">
@@ -132,6 +135,9 @@
       <Filter>Заголовочные файлы\Render processes</Filter>
     </ClInclude>
     <ClInclude Include="TestGameObject.h">
+      <Filter>Заголовочные файлы</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
       <Filter>Заголовочные файлы</Filter>
     </ClInclude>
   </ItemGroup>

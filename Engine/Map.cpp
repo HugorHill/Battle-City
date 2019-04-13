@@ -48,6 +48,8 @@ void Map :: init() {
 	CountBot = 0;
 	CountBullet = 0;
 	frags = 0;
+	explosion = engine->mm.loadTexture("map/explode.png");
+	bullet_texture = engine->mm.loadTexture("map/Bullet.png");
 	bot_texture = engine->mm.loadTexture("Panzer/P0.png");
 	player_textures.push_back(engine->mm.loadTexture("Panzer/T0.png"));
 	player_textures.push_back(engine->mm.loadTexture("Panzer/T1.png"));
@@ -93,6 +95,9 @@ void Map :: draw() {
 		i.draw();
 	}
 	for (auto &i : bonuses) {
+		i.draw();
+	}
+	for (auto &i : exp) {
 		i.draw();
 	}
 	player.draw();
@@ -239,10 +244,13 @@ void Map :: update() {
 		for ( auto &j : bullets) { //добавить анимацию уничтожения
 			if (abs(j.getX() - i.getX()) <= 1.3*panzer_width &&
 				abs(j.getY() - i.getY()) <= 1.3*panzer_width && i.immortality_time<=0)
-			{
+			{	
+				Explosion temp(j.getX(), j.getY(), this);
+				exp.push_back(temp);
 				i.del();
 				j.del();
 				frags++;
+				
 			}
 		}
 	}
@@ -278,7 +286,6 @@ void Map :: update() {
 	}
 	for (auto it = bullets.begin(); it != bullets.end();) {
 		if (it->IsAlive == 0) {
-			engine->mm.delTexture(it->texture);
 			it=bullets.erase(it);
 		}
 		else { 
@@ -308,7 +315,14 @@ void Map :: update() {
 			AddBonus(r);
 		
 	}
-	
+	for (auto it = exp.begin(); it != exp.end();) {
+		if (it->lifetime > std_life_time) {
+			it = exp.erase(it);
+		}
+		else {
+			it++;
+		}
+	}
 }
 void Map::EndGame() {
 	std::ifstream in;
@@ -323,6 +337,7 @@ void Map::EndGame() {
 	bots.clear();
 	bullets.clear();
 	bonuses.clear();
+	exp.clear();
 	PanzerPlayer temp(spawn_playerx, spawn_playery, 0, 0, this);
 	player = temp;
 	engine->sm.set_cur_scene("main menu");

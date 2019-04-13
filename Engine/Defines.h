@@ -28,4 +28,7 @@
 #define text_coord_y5 60
 #define message_x 0
 #define message_y 0
-#define std_swap_time 0.0005
+#define std_swap_time 0.01
+#define bullet_width 20
+#define expl_size 50
+#define std_life_time 1.5

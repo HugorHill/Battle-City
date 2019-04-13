@@ -4,6 +4,7 @@
 #include "PanzerPlayer.h"
 #include "Bullet.h"
 #include "Bonus.h"
+#include "Explosion.h"
 #include <vector>
 #include <set>
 
@@ -12,6 +13,7 @@ protected:
 	std:: vector <PanzerBot> bots;
 	std::vector <Bullet> bullets;
 	std::vector<Bonus>bonuses;
+	std::vector<Explosion> exp;
 	PanzerPlayer player;	
 	int CountBot;
 	int CountBullet;
@@ -29,6 +31,8 @@ protected:
 public :
 	std::vector <GLuint> player_textures;
 	GLuint bot_texture;
+	GLuint bullet_texture;
+	GLuint explosion;
 	int map[32][32]; // 0- ничего,1- трава, 2- кирпич, 3 - бетон, 4-вода
 	void init();
 	void draw();

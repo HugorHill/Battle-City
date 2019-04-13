@@ -2,18 +2,19 @@
 #include "RenderManager.h"
 #include "Defines.h"
 #include "Engine.h"
+#include "Map.h"
 float Bullet::BulletSpeed = std_BulletSpeed;
 double Bullet::time = 0;
 
 
 
-Bullet::Bullet(int x, int y,  int dir,double boost) {
+Bullet::Bullet(int x, int y,  int dir,double boost, void* map_) {
 	coordX = x;
 	coordY = y;	
 	direction = dir;
 	speed_boost = boost;
 	IsAlive = 1;
-	texture = engine->mm.loadTexture("map/panzer2.png");
+	map = map_;
 }
 
 void Bullet :: update() {
@@ -33,7 +34,6 @@ void Bullet :: update() {
 }
 void Bullet :: del(){
 	IsAlive = 0;
-	engine->mm.delTexture(texture);
 }
 void Bullet :: logic() {
 
@@ -53,7 +53,8 @@ void Bullet :: draw() {
 		angel = 180;
 		break;
 	}
-	engine->rm.draw_square(texture, 8, pos, angel);
+	engine->rm.draw_square(_ptr(map,Map)->bullet_texture, bullet_width, pos, angel);
+
 }
 float Bullet::dist(Bullet a) {
 	float dx = coordX - a.getX();
