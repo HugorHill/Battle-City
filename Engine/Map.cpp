@@ -131,7 +131,7 @@ void Map::logic() {
 		i.logic();
 	}
 	if (glfwGetKey(engine->getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-		engine->sm.set_cur_scene("main menu");
+		EndGame();
 	}
 }
 void Map:: destr(float x0, float y0, Bullet* b) {
@@ -297,11 +297,28 @@ void Map :: update() {
 		AddBot(p);
 		spawn_timer = std_spawn_cd;
 	}
-	if (frags == frag1 || frags == frag2 || frags == frag3 || frags == frag4) {
+	if (frags %10==1) {
 			frags++;
 			r = rand() % 6 + 1;
 			AddBonus(r);
 		
 	}
 	
+}
+void Map::EndGame() {
+	std::ifstream in;
+	in.open("map/Map1.txt");
+	for (int i = 0; i < 32; i++) {
+		std::string s;
+		getline(in, s);
+		for (int j = 0; j < 32; j++) {
+			map[i][j] = s[j] - '0';
+		}
+	}
+	bots.clear();
+	bullets.clear();
+	bonuses.clear();
+	PanzerPlayer temp(spawn_playerx, spawn_playery, 0, 0, this);
+	player = temp;
+	engine->sm.set_cur_scene("main menu");
 }

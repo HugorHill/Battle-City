@@ -3,8 +3,8 @@
 #include <string>
 #include "Map.h"
 
-std::string mainhero[5] = { "map/mainhero0.png","map/mainhero1.png","map/mainhero2.png",
-"map/mainhero3.png","map/mainhero4.png" };
+//std::string mainhero[5] = { "map/mainhero0.png","map/mainhero1.png","map/mainhero2.png",
+//"map/mainhero3.png","map/mainhero4.png" };
 
 PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	coordX = x;
@@ -15,7 +15,7 @@ PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	cooldown = 0;
 	map = _map;
 	level = 1;
-	texture =  engine->mm.loadTexture(mainhero[level]);
+	texture =  engine->mm.loadTexture("Panzer/T1-0.png");
 	time_turn = std_time_turn;	
 	speed_boost = (level-1)/6.0+1;
 	health = 3;
@@ -23,6 +23,7 @@ PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	immortality_time = std_immortality_time;
 }
 void PanzerPlayer::gg() {
+	_ptr(map,Map)->EndGame();
 	engine->sm.set_cur_scene("main menu");
 }
 void PanzerPlayer::logic() {

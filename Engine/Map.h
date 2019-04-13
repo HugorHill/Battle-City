@@ -38,4 +38,5 @@ public :
 	double GetTime();
 	void destr(float x0, float y0, Bullet* b);
 	void AddBonus(int type);
+	void EndGame();
 };
