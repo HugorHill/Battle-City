@@ -28,3 +28,4 @@
 #define text_coord_y5 60
 #define message_x 0
 #define message_y 0
+#define std_swap_time 0.0005

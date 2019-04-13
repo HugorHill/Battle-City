@@ -17,8 +17,7 @@ class Panzer : public GameObject {
 	
 	public:
 		float stun_time; // время в стане
-		GLuint texture;
-		//~Panzer() { _ptr(engine,Engine)->mm.delTexture(texture); };
+		float swap_time;
 		float time_turn;
 		int getDir();
 		float getVel();
@@ -29,7 +28,7 @@ class Panzer : public GameObject {
 		float getX() { return coordX; }
 		float getY() { return coordY; }
 		void init() {  }
-		void draw() ;
+		virtual void draw()=0 ;
 		void del();
 		void update();
 		virtual void logic() =0;

@@ -73,6 +73,13 @@ void Panzer::update() {
 	if (cooldown > -1) {
 		cooldown -= Panzer::time;
 	}
+	if (velocity != 0) {
+		swap_time += std_swap_time;
+		if (swap_time >= 1) {
+			swap_time = 0;
+		}
+	}
+
 }
 void Panzer::CancelMove() {
 	switch(direction) {
@@ -89,29 +96,15 @@ void Panzer::CancelMove() {
 		coordX -=  velocity * time;
 		break;
 	}
-
-}
-void Panzer::draw() {
-	glm::vec2 pos = { coordX,coordY };
-	float angel=0;
-	switch (direction) {
-	case 0: angel = 90;
-		break;
-	case 1: angel = 0;
-		break;
-	case 2:
-		angel = 270;
-		break;
-	case 3:
-		angel = 180;
-		break;
+	swap_time -= std_swap_time;
+	if (swap_time < 0) {
+		swap_time = 0;
 	}
-	engine->rm.draw_square(texture, 2*panzer_width, pos, angel);
 }
 void Panzer::del() {
 	health--;
 	if (health <= 0) {
 		IsAlive = 0;
-		engine->mm.delTexture(texture);
+		//engine->mm.delTexture(texture);
 	}
 }

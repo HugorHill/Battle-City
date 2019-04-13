@@ -5,6 +5,9 @@
 #include <iostream>
 std::string message[7] = { " a", "LEVEL UP", "EXTRA HP", "BOOOOOOM","FREEZING",
 "BASE PROTECTION", "IMMORTALITY" };
+
+
+
 void Map :: AddBot(PanzerBot p) {
 	bots.push_back(p);
 	CountBot++;
@@ -31,7 +34,6 @@ void Map::AddBonus(int type) {
 }
 void Map :: init() {
 	engine->vm.createVar("hero position", sizeof(glm::vec2));
-
 	spawn_botsx.push_back(128);
 	spawn_botsx.push_back(-128);
 	spawn_botsx.push_back(0);
@@ -46,7 +48,12 @@ void Map :: init() {
 	CountBot = 0;
 	CountBullet = 0;
 	frags = 0;
-	
+	bot_texture = engine->mm.loadTexture("Panzer/P0.png");
+	player_textures.push_back(engine->mm.loadTexture("Panzer/T0.png"));
+	player_textures.push_back(engine->mm.loadTexture("Panzer/T1.png"));
+	player_textures.push_back(engine->mm.loadTexture("Panzer/T2.png"));
+	player_textures.push_back(engine->mm.loadTexture("Panzer/T3.png"));
+
 	std::ifstream in;
 	in.open("map/Map1.txt");
 	for (int i = 0; i < 32; i++) {
@@ -282,8 +289,6 @@ void Map :: update() {
 	
 	for (auto it = bots.begin(); it != bots.end();) {
 		if (it->IsAlive == 0) {
-			
-			engine->mm.delTexture(it->texture);
 			it=bots.erase(it);
 		}
 		else {

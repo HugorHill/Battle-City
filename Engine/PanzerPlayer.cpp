@@ -15,12 +15,13 @@ PanzerPlayer::PanzerPlayer(float x,float y,int dir,float vel,void* _map) {
 	cooldown = 0;
 	map = _map;
 	level = 1;
-	texture =  engine->mm.loadTexture("Panzer/T1-0.png");
+	//texture =  engine->mm.loadTexture("Panzer/T1-0.png");
 	time_turn = std_time_turn;	
 	speed_boost = (level-1)/6.0+1;
 	health = 3;
 	stun_time = 0;
 	immortality_time = std_immortality_time;
+	swap_time = 0;
 }
 void PanzerPlayer::gg() {
 	_ptr(map,Map)->EndGame();
@@ -81,3 +82,22 @@ void PanzerPlayer::del() {
 		speed_boost = sqrt((double)level);
 	}
 }
+void PanzerPlayer::draw() {
+	glm::vec2 pos = { coordX,coordY };
+	float angel = 0;
+	switch (direction) {
+	case 0: angel = 90;
+		break;
+	case 1: angel = 0;
+		break;
+	case 2:
+		angel = 270;
+		break;
+	case 3:
+		angel = 180;
+		break;
+	}
+	engine->rm.draw_square(_ptr(map, Map)->player_textures[level-1], 2 * panzer_width, pos,
+		angel, swap_time, 8);
+}
+
