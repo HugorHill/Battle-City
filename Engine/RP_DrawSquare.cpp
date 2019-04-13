@@ -43,6 +43,8 @@ void RP_DrawSquare::render(Layer* layer)
 		transformation = glm::rotate(transformation, glm::radians(opt.angelRotate), glm::vec3(0, 0, 1));
 		transformation = glm::scale(transformation, glm::vec3(opt.size / WINDOW_SIZE_UNITS));
 		square.shader.load_mat("transf", transformation);
+		square.shader.load_f("time", opt.time>=1 ? 0 : opt.time);
+		square.shader.load_f("count_frame", opt.countFrame);
 		glBindTexture(GL_TEXTURE_2D, opt.texture);
 		glDrawArrays(GL_TRIANGLES, 0, 6);
 	}

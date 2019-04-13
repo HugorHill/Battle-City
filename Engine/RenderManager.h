@@ -41,11 +41,12 @@ class RenderManager
 	public:
 		RenderManager() : engine(NULL) {};
 		~RenderManager() {};
-		void draw_square(GLuint texture,GLuint size,glm::vec2 pos,float angelRotate = 0);
+		void draw_square(GLuint texture,GLuint size,glm::vec2 pos,float angelRotate = 0,float time = 0, int countFrame = 1);
 		void render_squares();
 		void draw_text(std::string text, glm::vec2 pos, bool atCenter = false, glm::vec3 color = glm::vec3(0), float scale = 1,GLuint bgTexture = 0);
 		void draw_shadow(glm::vec2 light_position, glm::vec2 wall);
 		void render_shadows();
+		void pick_main_layer() { layers["main"]->Use(); }
 	private:
 		void init(int w, int h, Engine* ptr);
 		void updateScreen();

@@ -9,6 +9,8 @@ class RP_DrawSquare : public RenderProcessObject
 			GLuint size;
 			glm::vec2 pos;
 			float angelRotate;
+			float time;
+			int countFrame;
 		};
 		std::vector<Options> options;
 	public:

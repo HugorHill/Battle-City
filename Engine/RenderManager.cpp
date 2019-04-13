@@ -102,10 +102,10 @@ void RenderManager::updateScreen()
 }
 
 //функция рисования квадратика: размеры и позиция указываются в юнитах, а угол в градусах
-void RenderManager::draw_square(GLuint texture, GLuint size, glm::vec2 pos, float angelRotate)
+void RenderManager::draw_square(GLuint texture, GLuint size, glm::vec2 pos, float angelRotate,float time,int countFrame)
 {
 	RP_DrawSquare* RP = (RP_DrawSquare*)renderProcess["draw square"];
-	RP->options.push_back({texture, size, pos, angelRotate });
+	RP->options.push_back({texture, size, pos, angelRotate,time,countFrame });
 }
 
 void RenderManager::render_squares()
